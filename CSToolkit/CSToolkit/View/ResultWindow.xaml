@@ -1,0 +1,67 @@
+﻿<Window x:Class="CSToolkit.View.ResultWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CWS Diagnostic Tool" Left="{Binding Left, Mode=TwoWay}" Top="{Binding Top, Mode=TwoWay}" Height="{Binding Height, Mode=TwoWay}" Width="{Binding Width, Mode=TwoWay}" Icon="../Resources/cws_icon.ico" MouseLeftButtonDown="OnMouseLeftButtonDown" AllowsTransparency="True" WindowStyle="None">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/ResourcesDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border BorderBrush="Black" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
+                        <GradientStop Color="LightGray" Offset="0"/>
+                        <GradientStop Color="#e5e5e5" Offset="0.567"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <Image Margin="15,0,0,0" HorizontalAlignment="Left" Source="../Resources/cws_icon.ico" Width="20" Height="20"></Image>
+                <Label HorizontalAlignment="Center" FontSize="15" Width="180" Foreground="White">CWS Diagnostic Tool</Label>
+
+                <Button Click="HideClicked" Style="{StaticResource HideButtonStyle}"></Button>
+                <Button Click="ExpandClicked" Style="{StaticResource ExpandButtonStyle}"></Button>
+                <Button Click="CloseClicked" Style="{StaticResource CrossButtonStyle}"></Button>
+
+            </Grid>
+            <Border Grid.Row="1" BorderThickness="1,1,1,0" BorderBrush="Gray">
+                <Label Name="TitleLabel" Grid.Row="0" FontSize="16" Width="{Binding Path=Width, ElementName=My}" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left"></Label>
+            </Border>
+
+            <Border Grid.Row="2" BorderThickness="1" BorderBrush="Gray">
+                <Grid>
+                    <ListView Name="CommandList">
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding CurrentState}"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding CurrentState}"/>
+                        </GridView>
+                    </ListView>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="3" BorderThickness="1,0,1,1" BorderBrush="Gray">
+                <Label Name="FinishedCommandsLabel" FontSize="14" Width="200" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Content="Finished 0 out of 8 commands" Margin="20,0,0,0"></Label>
+                </Border>
+            <Label Grid.Row="3" Name="ReportUrlLabel" FontSize="14" Width="300" Foreground="MediumBlue" HorizontalContentAlignment="Left" HorizontalAlignment="Left" MouseLeftButtonDown="ReportUrlClicked" MouseLeftButtonUp="ReportUrlButtonReleased" IsEnabled="False" Visibility="Hidden" Margin="300,0,0,0">
+                <TextBlock Name="ReportUrlText" TextDecorations="Underline"></TextBlock>
+            </Label>
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{StaticResource GeneralButtonStyle}" Margin="0,0,20,0" IsEnabled="False" Name="ContinueButton" Click="ContinueButtonClicked">Generate report</Button>
+                <Button Style="{StaticResource GeneralButtonStyle}" Margin="20,0,0,0" Name="ExitButton" Click="CloseClicked">Finish</Button>
+            </StackPanel>
+
+        </Grid>
+    </Border>
+</Window>
