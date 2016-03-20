@@ -15,8 +15,6 @@ namespace CSToolkit.ViewModel
         private bool _needToInstallWinPcap = true;
         private const string NameRegex = @"^[\D]+$";
         private const string PhoneNumberRegex = @"^[\d]+$";
-        private const double StartLeftPoint = 50;
-        private const double StartTopPoint = 50;
         private const double DefaultWindowHeight = 330;
         private const double DefaultWindowWidth = 625;
         private double _top;
@@ -28,10 +26,10 @@ namespace CSToolkit.ViewModel
         private Visibility _windowVisibility;
         private bool _windowIsMax;
 
-        public StartWindowViewModel()
+        public StartWindowViewModel(double left, double top)
         {
-            Left = StartLeftPoint;
-            Top = StartTopPoint;
+            Left = left;
+            Top = top;
             SetDefaultWindowDimensions();
             BindCommands();
         }
@@ -182,6 +180,7 @@ namespace CSToolkit.ViewModel
             CloseCommand = new RelayCommand(arg => CloseButtonClicked());
             ContinueCommand = new RelayCommand(arg => ContinueButtonClicked());
             ExitCommand = new RelayCommand(arg => ExitButtonClicked());
+            HideCommand = new RelayCommand(arg => HideButtonClicked());
         }
 
         private bool NameIsValid()

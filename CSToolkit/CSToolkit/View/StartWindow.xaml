@@ -4,10 +4,6 @@
         xmlns:local="clr-namespace:CSToolkit.ViewModel"
         Title="CWS Diagnostic Tool" Height="{Binding Height, Mode=TwoWay}" Width="{Binding Width, Mode=TwoWay}" Left="{Binding Left, Mode=TwoWay}" Top="{Binding Top, Mode=TwoWay}" Visibility="{Binding WindowVisibility, Mode=TwoWay}" Icon="../Resources/cws_icon.ico" ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None" MouseLeftButtonDown="OnMouseLeftButtonDown">
 
-    <Window.DataContext>
-        <local:StartWindowViewModel/>
-    </Window.DataContext>
-
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -25,23 +21,14 @@
                 <RowDefinition Height="*" MinHeight="60"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="22*"/>
-                    <ColumnDefinition Width="601*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.Background>
-                    <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
-                        <GradientStop Color="LightGray" Offset="0"/>
-                        <GradientStop Color="#e5e5e5" Offset="0.567"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
-                <Image Margin="15,5,0,5" HorizontalAlignment="Left" Source="../Resources/cws_icon.ico" Width="20" Height="20" Grid.ColumnSpan="2"></Image>
-                <Label HorizontalAlignment="Center" FontSize="15" Width="180" Foreground="White" Grid.Column="1">CWS Diagnostic Tool</Label>
-
-                <Button Click="HideClicked" Style="{StaticResource HideButtonStyle}" Grid.Column="1"></Button>
-                <Button Command="{Binding ExpandCommand}" Style="{StaticResource ExpandButtonStyle}" Grid.Column="1"></Button>
-                <Button Command="{Binding CloseCommand}" Style="{StaticResource CrossButtonStyle}" Grid.Column="1"></Button>
+            <Grid Grid.Row="0" Background="#d1d1d1">
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="2.5,0,0,0" HorizontalAlignment="Left" Source="../Resources/cws_icon.ico" Width="43" Height="25"></Image>
+                    <Label Margin="5,0,0,0" FontSize="15" Grid.Column="1">CWS Diagnostic Tool</Label>
+                </StackPanel>
+                <Button Command="{Binding HideCommand}" Style="{StaticResource HideButtonStyle}"></Button>
+                <Button Command="{Binding ExpandCommand}" Style="{StaticResource ExpandButtonStyle}"></Button>
+                <Button Command="{Binding CloseCommand}" Style="{StaticResource CrossButtonStyle}"></Button>
             </Grid>
 
             <Grid Grid.Row="1">
@@ -60,22 +47,22 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0">Customer Name</Label>
-                    <TextBox Grid.Row="0" Name="FullNameTextBox" MaxLength="70">
-                        <TextBox.Text>
-                            <Binding Path="UserName">
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
-                    <Label Grid.Row="1">SR Number</Label>
-                    <TextBox Grid.Row="1" Name="PhoneNumberTextBox">
-                        <TextBox.Text>
-                            <Binding Path="PhoneNumber" Mode="TwoWay">
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
-                    <Label Grid.Row="2" Width="155">CEC ID</Label>
-                    <TextBox Grid.Row="2" Name="EmailAdressTextBox" Text="{Binding Path=EmailAdress, Mode=OneWay}"></TextBox>
+
+                    <DockPanel Grid.Row="0">
+                        <Label Grid.Row="0">Customer Name</Label>
+                        <TextBox Grid.Row="0" Name="FullNameTextBox" Text="{Binding Path=UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    </DockPanel>
+
+                    <DockPanel Grid.Row="1">
+                        <Label>SR Number</Label>
+                        <TextBox Name="PhoneNumberTextBox" Text="{Binding Path=PhoneNumber, Mode=TwoWay}"></TextBox>
+                    </DockPanel>
+
+                    <DockPanel Grid.Row="2">
+                        <Label>CEC ID(Optional)</Label>
+                        <TextBox Name="EmailAdressTextBox" Text="{Binding Path=EmailAdress, Mode=TwoWay}"></TextBox>
+                    </DockPanel>
+                    
                     <Label Grid.Row="3" Width="210">Install WinPcap (required)</Label>
                     <CheckBox Grid.Row="3" Name="InstallWinPcapCheckBox" IsChecked="{Binding NeedToInstallWinPcap}" HorizontalAlignment="Left" Margin="255,0,0,0" VerticalAlignment="Center"></CheckBox>
                 </Grid>

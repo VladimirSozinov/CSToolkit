@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -35,7 +36,7 @@ namespace CSToolkit.View
         public ResultWindow(string one, string two, double x , double y, ObservableCollection<Operation> commands)
         {
             InitializeComponent();
-            TitleLabel.Content = string.Format("Result for Proxy1: {0}, Proxy2: {1}", one, two );
+            TitleLabel.Content = string.Format("Results for Primary Proxy= {0} & Secondary Proxy = {1}", one, two);
             Width = 625;
             Height = 380;
             Left = x;
@@ -140,10 +141,10 @@ namespace CSToolkit.View
             
             foreach(var com in _commands)
             {
-                this.CommandList.Items.Add(com);
+                CommandList.Items.Add(com);
             }
 
-            this.CommandList.Items.Refresh();
+            CommandList.Items.Refresh();
 
             _aTimer = new System.Timers.Timer(2000);
             _aTimer.Elapsed += OnTimedEvent;
@@ -163,17 +164,9 @@ namespace CSToolkit.View
 
         private void EvaluateFinishedProcesses()
         {
-            int count = 0;
+            int count = _commands.Count(command => command.CurrentState == Operation.States.Finished);
 
-            foreach( var command in _commands )
-            {
-                if(command.CurrentState == Operation.States.Finished)
-                {
-                    count++;
-                }
-            }
-
-            this.Dispatcher.BeginInvoke(new Action(delegate()
+            Dispatcher.BeginInvoke(new Action(delegate()
             {
                 FinishedCommandsLabel.Content = string.Format("Finished {0} out of 8 commands", count);
 

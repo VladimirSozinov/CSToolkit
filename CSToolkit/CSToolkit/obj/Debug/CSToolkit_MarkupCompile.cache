@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\user\Downloads\CSToolkit\CSToolkit\obj\Debug\
+B:\Repos\CSToolkit\CSToolkit\obj\Debug\
 CSToolkit
 none
 false
 DEBUG;TRACE
-C:\Users\user\Downloads\CSToolkit\CSToolkit\App.xaml
+B:\Repos\CSToolkit\CSToolkit\App.xaml
 4105538850
 1876090037
-271531445864
-16285856768
+281739881899
+16752057593
 Resources\ResourcesDictionary.xaml;View\ResultWindow.xaml;View\SecondWindow.xaml;View\StartWindow.xaml;
 
 False

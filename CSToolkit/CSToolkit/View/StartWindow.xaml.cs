@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using CSToolkit.ViewModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CSToolkit.View
@@ -8,9 +9,20 @@ namespace CSToolkit.View
         public StartWindow()
         {
             InitializeComponent();
+            DataContextChanged += new DependencyPropertyChangedEventHandler(StartWindowDataContextChanged);
         }
 
-        private void HideClicked(object sender, RoutedEventArgs e)
+        private void StartWindowDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            var viewModel = DataContext as StartWindowViewModel;
+
+            if (viewModel == null)
+                return;
+
+            viewModel.HideButtonClickedEvent += HideClicked;
+        }
+
+        private void HideClicked()
         {
             WindowState = WindowState.Minimized;
         }

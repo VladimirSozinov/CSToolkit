@@ -20,21 +20,17 @@
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.Background>
-                    <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
-                        <GradientStop Color="LightGray" Offset="0"/>
-                        <GradientStop Color="#e5e5e5" Offset="0.567"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
-                <Image Margin="15,0,0,0" HorizontalAlignment="Left" Source="../Resources/cws_icon.ico" Width="20" Height="20"></Image>
-                <Label HorizontalAlignment="Center" FontSize="15" Width="180" Foreground="White">CWS Diagnostic Tool</Label>
 
-                <Button Click="HideClicked" Style="{StaticResource HideButtonStyle}"></Button>
-                <Button Click="ExpandClicked" Style="{StaticResource ExpandButtonStyle}"></Button>
-                <Button Click="CloseClicked" Style="{StaticResource CrossButtonStyle}"></Button>
-
+            <Grid Grid.Row="0" Background="#d1d1d1">
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="2.5,0,0,0" HorizontalAlignment="Left" Source="../Resources/cws_icon.ico" Width="43" Height="25"></Image>
+                    <Label Margin="5,0,0,0" FontSize="15" Grid.Column="1">CWS Diagnostic Tool</Label>
+                </StackPanel>
+                <Button Style="{StaticResource HideButtonStyle}" Click="HideClicked" Grid.Column="1"></Button>
+                <Button Command="{Binding ExpandCommand}" Style="{StaticResource ExpandButtonStyle}" Grid.Column="1"></Button>
+                <Button Command="{Binding CloseCommand}" Style="{StaticResource CrossButtonStyle}" Grid.Column="1"></Button>
             </Grid>
+            
             <Border Grid.Row="1" BorderThickness="1,1,1,0" BorderBrush="Gray">
                 <Label Name="TitleLabel" Grid.Row="0" FontSize="16" Width="{Binding Path=Width, ElementName=My}" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left"></Label>
             </Border>

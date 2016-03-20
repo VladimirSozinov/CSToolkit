@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSToolkit.ViewModel;
+using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -10,7 +11,18 @@ namespace CSToolkit.View
         public SecondWindow()
         {
             InitializeComponent();
+            DataContextChanged += new DependencyPropertyChangedEventHandler(SecondWindowDataContextChanged);
             PingHostTextBox.Foreground = (Brush)new BrushConverter().ConvertFrom("#FFABADB3");
+        }
+
+        private void SecondWindowDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            var viewModel = DataContext as SecondWindowViewModel;
+
+            if (viewModel == null)
+                return;
+
+            viewModel.HideButtonClickedEvent += HideClicked;
         }
 
         private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -30,7 +42,7 @@ namespace CSToolkit.View
             }
         }
 
-        private void HideClicked(object sender, RoutedEventArgs e)
+        private void HideClicked()
         {
             WindowState = WindowState.Minimized;
         }

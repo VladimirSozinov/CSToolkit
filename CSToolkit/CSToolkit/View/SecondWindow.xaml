@@ -22,20 +22,14 @@
                 <RowDefinition Height="*" MinHeight="60"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
-                <Grid.Background>
-                    <LinearGradientBrush EndPoint="0.504,1.5" StartPoint="0.504,0.03">
-                        <GradientStop Color="LightGray" Offset="0"/>
-                        <GradientStop Color="#e5e5e5" Offset="0.567"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
-                <Image Margin="15,0,0,0" HorizontalAlignment="Left" Source="../Resources/cws_icon.ico" Width="20" Height="20"></Image>
-                <Label HorizontalAlignment="Center" FontSize="15" Width="180" Foreground="White">CWS Diagnostic Tool</Label>
-
-                <Button Click="HideClicked" Style="{StaticResource HideButtonStyle}"></Button>
+            <Grid Grid.Row="0" Background="#d1d1d1">
+                <StackPanel Orientation="Horizontal">
+                    <Image Margin="2.5,0,0,0" HorizontalAlignment="Left" Source="../Resources/cws_icon.ico" Width="43" Height="25"></Image>
+                    <Label Margin="5,0,0,0" FontSize="15" Grid.Column="1">CWS Diagnostic Tool</Label>
+                </StackPanel>
+                <Button Command="{Binding HideCommand}" Style="{StaticResource HideButtonStyle}"></Button>
                 <Button Command="{Binding ExpandCommand}" Style="{StaticResource ExpandButtonStyle}"></Button>
                 <Button Command="{Binding CloseCommand}" Style="{StaticResource CrossButtonStyle}"></Button>
-
             </Grid>
 
             <Grid Grid.Row="1">
@@ -44,7 +38,7 @@
                     <RowDefinition Height="3*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" HorizontalAlignment="Center" FontSize="18" Height="35" Width="480" HorizontalContentAlignment="Center">Please, enter your information in the fields below</Label>
+                <Label Grid.Row="0" HorizontalAlignment="Center" FontSize="18" Height="35" Width="480" HorizontalContentAlignment="Center">Please enter your information in the fields below</Label>
                 
                 <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
@@ -53,19 +47,29 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0">Proxy 1</Label>
-                <TextBox Grid.Row="0" Name="Proxy1TextBox" BorderBrush="{Binding Path=Proxy1BorderBrush, Mode=TwoWay}">
-                    <Binding Path="Proxy1"></Binding>
-                </TextBox>
-                <Label Grid.Row="1">Proxy 2</Label>
-                <TextBox Grid.Row="1" Name="Proxy2TextBox" BorderBrush="{Binding Path=Proxy2BorderBrush, Mode=TwoWay}">
-                    <Binding Path="Proxy2"></Binding>
-                </TextBox>
-                <Label Grid.Row="2">Ping Host</Label>
-                <TextBox Grid.Row="2" Name="PingHostTextBox" BorderBrush="{Binding Path=PingHostBorderBrush}" PreviewMouseUp="PingHostPreviewMouseUp"  PreviewLostKeyboardFocus ="PingHostPreviewMouseDown">
-                    <Binding Path="PingHostText" Mode="TwoWay"></Binding>
-                </TextBox>
-            </Grid>
+
+                    <DockPanel Grid.Row="0">
+                        <Label>Primary Proxy</Label>
+                        <TextBox Name="Proxy1TextBox" BorderBrush="{Binding Path=Proxy1BorderBrush, Mode=TwoWay}">
+                            <Binding Path="Proxy1"></Binding>
+                        </TextBox>
+                    </DockPanel>
+
+                    <DockPanel Grid.Row="1">
+                        <Label>Secondary Proxy</Label>
+                        <TextBox Name="Proxy2TextBox" BorderBrush="{Binding Path=Proxy2BorderBrush, Mode=TwoWay}">
+                            <Binding Path="Proxy2"></Binding>
+                        </TextBox>
+                    </DockPanel>
+
+                    <DockPanel Grid.Row="2">
+                        <Label>Ping Host</Label>
+                        <TextBox Name="PingHostTextBox" BorderBrush="{Binding Path=PingHostBorderBrush}" PreviewMouseUp="PingHostPreviewMouseUp"  PreviewLostKeyboardFocus ="PingHostPreviewMouseDown">
+                            <Binding Path="PingHostText" Mode="TwoWay"></Binding>
+                        </TextBox>
+                    </DockPanel>
+                
+                </Grid>
             </Grid>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,12">

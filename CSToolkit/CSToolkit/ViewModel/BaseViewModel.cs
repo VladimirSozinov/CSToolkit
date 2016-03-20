@@ -18,6 +18,7 @@ namespace CSToolkit.ViewModel
         public ICommand ExitCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+        public event Action HideButtonClickedEvent;
 
         public BaseViewModel()
         {
@@ -25,6 +26,7 @@ namespace CSToolkit.ViewModel
 
         protected virtual void HideButtonClicked()
         {
+            HideButtonClickedEvent();
         }
 
         protected virtual void ExpandButtonClicked()
@@ -43,7 +45,7 @@ namespace CSToolkit.ViewModel
         protected void ExitButtonClicked()
         {
            Application.Current.Shutdown();
-        }
+        } 
 
         protected virtual void OnPropertyChanged(string propertyName)
         {

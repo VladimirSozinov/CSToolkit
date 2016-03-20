@@ -50,6 +50,7 @@ namespace CSToolkit.ViewModel
             CloseCommand = new RelayCommand(arg => CloseButtonClicked());
             ContinueCommand = new RelayCommand(arg => ContinueButtonClicked());
             ExitCommand = new RelayCommand(arg => ExitButtonClicked());
+            HideCommand = new RelayCommand(arg => HideButtonClicked());
         }
 
     #region Public properties
