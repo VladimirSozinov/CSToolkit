@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CSToolkit.Model
 {
-    public class Operation
+    public class Operation : INotifyPropertyChanged
     {
         public string CommandName { get; set; }
-        public States CurrentState { get; set; }
         public List<SubCommand> SetCommands { get; set; }
         public string TxtName { get; set; }
+
+        private States _currentState;
 
         public enum States
         {
@@ -20,6 +22,19 @@ namespace CSToolkit.Model
             InProgress,
             Finished,
             Failed
+        }
+        
+        public States CurrentState 
+        { 
+            get
+            {
+                return _currentState;
+            }
+            set
+            {
+                _currentState = value;
+                OnPropertyChanged("CurrentState");
+            }
         }
 
         public ObservableCollection<Operation> GetOperations(string proxy1, string proxy2, string pingHost)
@@ -38,6 +53,16 @@ namespace CSToolkit.Model
             }
 
             return commands;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

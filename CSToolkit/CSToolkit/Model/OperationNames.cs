@@ -13,11 +13,11 @@ namespace CSToolkit.Model
 
         public OperationNames()
         {
-            Operations = new List<string>(){"Collecting WHOAMI", "Checking for OPEN PORT 8080", "Collecting SYSTEM INFORMATION",
+            Operations = new List<string>(){"Collecting basic info", "Collecting WHOAMI", "Checking for OPEN PORT 8080", "Collecting SYSTEM INFORMATION",
                                                        "Executing DNS CHECK", "Executing TRACEROUTE and TCP TRACEROUTE", 
                                                        "Executing PING and TCP PING", "Executing MTR", "Executing CURL"};
 
-            OperationFileNames = new List<string>() { "whoami", "openproxyport", "systeminfo", "dns", 
+            OperationFileNames = new List<string>() { "basicinfo", "whoami", "openproxyport", "systeminfo", "dns", 
                                                                  "traceroute", "pings", "mtr", "curl"};
     
         }

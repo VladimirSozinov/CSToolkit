@@ -10,17 +10,15 @@ namespace CSToolkit.Tools
 {
     class HtmlGenerator
     {
-        private static string _pathToHtmlFile;
+        private static string _reportName;
 
-        public static string GetPathToHtmlFile()
+        public static string GetReportName()
         {
-            return _pathToHtmlFile;
+            return _reportName;
         }
 
-        public static string WriteToHtml(List<OperationReport> reports, string directory)
+        public static string WriteToHtml(List<OperationReport> reports)
         {
-            string reportName = String.Empty;
-
             try
             {
                 StringWriter stringWriter = new StringWriter();
@@ -62,19 +60,16 @@ namespace CSToolkit.Tools
                 stringWriter.WriteLine("</body></html>");
 
                 var suffix = stringWriter.ToString().GetHashCode();
-                var pathToHtmlFile = string.Format("{0}/Report{1}.html", directory, suffix );
+                _reportName = string.Format("Report{0}.html", suffix);
 
-                using (StreamWriter outfile = new StreamWriter(pathToHtmlFile))
+                using (StreamWriter outfile = new StreamWriter(_reportName))
                 {
                     outfile.Write(stringWriter);
                 }
-                
-                _pathToHtmlFile = pathToHtmlFile;
-                reportName = string.Format("Report{0}.html", suffix);
             }
             catch (SystemException ex){ }
 
-            return reportName;
+            return _reportName;
         }
 
         private static List<string> GetLinks( List<OperationReport> list )

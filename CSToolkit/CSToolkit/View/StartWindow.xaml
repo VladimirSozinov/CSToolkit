@@ -49,13 +49,13 @@
                     </Grid.RowDefinitions>
 
                     <DockPanel Grid.Row="0">
-                        <Label Grid.Row="0">Customer Name</Label>
-                        <TextBox Grid.Row="0" Name="FullNameTextBox" Text="{Binding Path=UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <Label>Customer Name</Label>
+                        <TextBox Name="FullNameTextBox" Text="{Binding Path=UserName, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     </DockPanel>
 
                     <DockPanel Grid.Row="1">
                         <Label>SR Number</Label>
-                        <TextBox Name="PhoneNumberTextBox" Text="{Binding Path=PhoneNumber, Mode=TwoWay}"></TextBox>
+                        <TextBox Name="PhoneNumberTextBox" Text="{Binding Path=PhoneNumber, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     </DockPanel>
 
                     <DockPanel Grid.Row="2">

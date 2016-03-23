@@ -7,7 +7,7 @@ using CSToolkit.View;
 
 namespace CSToolkit.ViewModel
 {
-    public class StartWindowViewModel : BaseViewModel
+    public class StartWindowViewModel : BaseViewModel, IDataErrorInfo
     {
         private string _userName;
         private string _phoneNumber;
@@ -34,7 +34,34 @@ namespace CSToolkit.ViewModel
             BindCommands();
         }
 
-    #region Public properties
+        #region IDataErrorInfo Members
+
+        public string Error
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "UserName")
+                {
+                    if (!NameIsValid()) return "Incorrect value";
+                }
+
+                if (columnName == "PhoneNumber")
+                {
+                    if (!PhoneIsValid()) return "Incorrect value";
+                }
+
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region Public properties
 
         public string UserName
         { 
@@ -128,7 +155,7 @@ namespace CSToolkit.ViewModel
             }
         }
 
-    #endregion
+        #endregion
 
         protected override void ExpandButtonClicked()
         {

@@ -26,36 +26,43 @@
                     <Image Margin="2.5,0,0,0" HorizontalAlignment="Left" Source="../Resources/cws_icon.ico" Width="43" Height="25"></Image>
                     <Label Margin="5,0,0,0" FontSize="15" Grid.Column="1">CWS Diagnostic Tool</Label>
                 </StackPanel>
-                <Button Style="{StaticResource HideButtonStyle}" Click="HideClicked" Grid.Column="1"></Button>
+                <Button Command="{Binding HideCommand}" Style="{StaticResource HideButtonStyle}" Grid.Column="1"></Button>
                 <Button Command="{Binding ExpandCommand}" Style="{StaticResource ExpandButtonStyle}" Grid.Column="1"></Button>
                 <Button Command="{Binding CloseCommand}" Style="{StaticResource CrossButtonStyle}" Grid.Column="1"></Button>
             </Grid>
             
             <Border Grid.Row="1" BorderThickness="1,1,1,0" BorderBrush="Gray">
-                <Label Name="TitleLabel" Grid.Row="0" FontSize="16" Width="{Binding Path=Width, ElementName=My}" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left"></Label>
+                <Label Name="TitleLabel" Content="{Binding WindowHeaderText, Mode=TwoWay}" Grid.Row="0" FontSize="16" Width="{Binding Path=Width, ElementName=My}" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left"></Label>
             </Border>
 
             <Border Grid.Row="2" BorderThickness="1" BorderBrush="Gray">
                 <Grid>
-                    <ListView Name="CommandList">
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding CurrentState}"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding CurrentState}"/>
-                        </GridView>
+                    <ListView Name="CommandList" ItemsSource="{Binding Operations}">
+                        <ListView.Resources>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </ListView.Resources>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding CommandName}" Header="Action" Width="425"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding CurrentState}" Header="Status" Width="425"/>
+                            </GridView>
+                        </ListView.View>
                     </ListView>
                 </Grid>
             </Border>
 
             <Border Grid.Row="3" BorderThickness="1,0,1,1" BorderBrush="Gray">
-                <Label Name="FinishedCommandsLabel" FontSize="14" Width="200" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Content="Finished 0 out of 8 commands" Margin="20,0,0,0"></Label>
+                <Label Name="FinishedCommandsLabel" FontSize="14" Width="Auto" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Content="{Binding ResultText}" Margin="20,0,0,0"></Label>
                 </Border>
-            <Label Grid.Row="3" Name="ReportUrlLabel" FontSize="14" Width="300" Foreground="MediumBlue" HorizontalContentAlignment="Left" HorizontalAlignment="Left" MouseLeftButtonDown="ReportUrlClicked" MouseLeftButtonUp="ReportUrlButtonReleased" IsEnabled="False" Visibility="Hidden" Margin="300,0,0,0">
+            <Label Grid.Row="3" Name="ReportUrlLabel" FontSize="14" Width="300" Foreground="MediumBlue" HorizontalContentAlignment="Left" HorizontalAlignment="Left" MouseLeftButtonDown="ReportUrlClicked" MouseLeftButtonUp="ReportUrlButtonReleased" IsEnabled="False" Visibility="Hidden" Margin="245,0,0,0">
                 <TextBlock Name="ReportUrlText" TextDecorations="Underline"></TextBlock>
             </Label>
 
             <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Style="{StaticResource GeneralButtonStyle}" Margin="0,0,20,0" IsEnabled="False" Name="ContinueButton" Click="ContinueButtonClicked">Generate report</Button>
-                <Button Style="{StaticResource GeneralButtonStyle}" Margin="20,0,0,0" Name="ExitButton" Click="CloseClicked">Finish</Button>
+                <Button Name="ContinueButton" Command="{Binding ContinueCommand}" Style="{StaticResource GeneralButtonStyle}" Margin="0,0,20,0" IsEnabled="False">Generate report</Button>
+                <Button Name="ExitButton" Command="{Binding ExitCommand}" Style="{StaticResource GeneralButtonStyle}" Margin="20,0,0,0">Finish</Button>
             </StackPanel>
 
         </Grid>

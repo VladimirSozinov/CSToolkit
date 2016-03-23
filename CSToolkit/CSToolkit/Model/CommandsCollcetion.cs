@@ -15,6 +15,9 @@ namespace CSToolkit.Model
         public CommandsCollcetion(string proxy1, string proxy2, string host)
         {
             _setCommands = new List<List<SubCommand>>();
+            
+            var basicInfo = new List<SubCommand>();
+            _setCommands.Add(basicInfo);
 
             var collectingWhoami = new List<SubCommand>();
             collectingWhoami.Add(new SubCommand(@"bin\curl\curl64.exe", string.Format(@"--proxy {0}:8080 {1}", proxy1, _whoami)));

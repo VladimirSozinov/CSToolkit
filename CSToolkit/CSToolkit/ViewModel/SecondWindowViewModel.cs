@@ -109,7 +109,7 @@ namespace CSToolkit.ViewModel
 
         protected override void ExpandButtonClicked()
         {
-            var workingArea =SystemParameters.WorkArea;
+            var workingArea = SystemParameters.WorkArea;
 
             if (_windowIsMax == false)
             {
@@ -135,25 +135,14 @@ namespace CSToolkit.ViewModel
         {
             if( rules.IsProxyValid(Proxy1) && rules.IsProxyValid(Proxy2) && rules.IsPingHostValid(PingHostText) )
             {
-                //if (string.IsNullOrEmpty(PingHostText))
-                //    PingHostText = "www.google.com";//todo
-                //var operations = new Operation().GetOperations(Proxy1, Proxy2, PingHostText);
-                //var viewModel = new ResultWindowViewModel(Left, Top);
-                //viewModel.SetValues(Proxy1, Proxy2, PingHostText, operations);
-                //var view = new ResultWindow();
-                //view.DataContext = viewModel;
-                //view.Commands = operations;
-                //WindowVisibility = Visibility.Hidden;
-                //view.Show();
-                //OnPropertyChanged("WindowVisibility");
-
                 if (string.IsNullOrEmpty(PingHostText))
                     PingHostText = "www.google.com";//todo
-                var operations = new Operation().GetOperations(Proxy1, Proxy2, PingHostText);
-                WindowVisibility = Visibility.Hidden;
-                new ResultWindow(Proxy1, Proxy2, Left, Top, operations).Show();
-                OnPropertyChanged("WindowVisibility");
 
+                var operations = new Operation().GetOperations(Proxy1, Proxy2, PingHostText);
+                var viewModel = new ResultWindowViewModel(Left, Top, Proxy1, Proxy2, PingHostText) { Operations = operations};
+                var view = new ResultWindow(Proxy1, Proxy2) { DataContext = viewModel };
+                view.Show();
+                WindowVisibility = Visibility.Hidden;
             }
             else
             {
