@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:CSToolkit.ViewModel"
-        Title="CWS Diagnostic Tool" Height="{Binding Height, Mode=TwoWay}" Width="{Binding Width, Mode=TwoWay}" Left="{Binding Left, Mode=TwoWay}" Top="{Binding Top, Mode=TwoWay}" Visibility="{Binding WindowVisibility, Mode=TwoWay}" Icon="../Resources/cws_icon.ico" ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None" MouseLeftButtonDown="OnMouseLeftButtonDown">
+        Title="CWS Diagnostic Tool v1.2" Height="{Binding Height, Mode=TwoWay}" Width="{Binding Width, Mode=TwoWay}" Left="{Binding Left, Mode=TwoWay}" Top="{Binding Top, Mode=TwoWay}" Visibility="{Binding WindowVisibility, Mode=TwoWay}" Icon="../Resources/cws_icon.ico" ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None" MouseLeftButtonDown="OnMouseLeftButtonDown">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -24,7 +24,7 @@
             <Grid Grid.Row="0" Background="#d1d1d1">
                 <StackPanel Orientation="Horizontal">
                     <Image Margin="2.5,0,0,0" HorizontalAlignment="Left" Source="../Resources/cws_icon.ico" Width="43" Height="25"></Image>
-                    <Label Margin="5,0,0,0" FontSize="15" Grid.Column="1">CWS Diagnostic Tool</Label>
+                    <Label Margin="5,0,0,0" FontSize="14" Grid.Column="1">CWS Diagnostic Tool v1.2</Label>
                 </StackPanel>
                 <Button Command="{Binding HideCommand}" Style="{StaticResource HideButtonStyle}"></Button>
                 <Button Command="{Binding ExpandCommand}" Style="{StaticResource ExpandButtonStyle}"></Button>
@@ -38,7 +38,7 @@
                     <RowDefinition Height="3*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" HorizontalAlignment="Center" FontSize="18" Height="35" Width="480" HorizontalContentAlignment="Center">Please enter your information in the fields below</Label>
+                <Label Grid.Row="0" HorizontalAlignment="Center" FontSize="14" Height="35" Width="480" HorizontalContentAlignment="Center">Please enter your information in the fields below</Label>
 
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>

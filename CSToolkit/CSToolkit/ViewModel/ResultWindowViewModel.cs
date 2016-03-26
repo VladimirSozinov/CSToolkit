@@ -37,8 +37,8 @@ namespace CSToolkit.ViewModel
         private double _lastTop;
         private double _height;
         private double _width;
-        private const double DefaultWindowHeight = 410;
-        private const double DefaultWindowWidth = 850;
+        private const double DefaultWindowHeight = 400;
+        private const double DefaultWindowWidth = 750;
         private Visibility _windowVisibility;
         private ObservableCollection<Operation> _operations;
         private System.Timers.Timer _aTimer;
@@ -49,8 +49,10 @@ namespace CSToolkit.ViewModel
         private string _reportName;
         private string _titleText;
         private BackgroundWorker worker;
+        private double _halfOfWindowWidth;
 
         public event CustomHandler HtmlHasGenerated;
+        public event Action ZiplHasGenerated;
         public delegate void CustomHandler(object sender, PropertyChangeEventArgs data);
 
         public ResultWindowViewModel(double left, double top, string proxy1, string proxy2, string pingHost)
@@ -181,7 +183,7 @@ namespace CSToolkit.ViewModel
             listReports.Add(new Report("user data collecting", UserInfo.GetInfoForReport()));//Adding report for UserInfo
             _operationReports[0] = new OperationReport(_operationReports[0].Operation, listReports);
             _reportName = HtmlGenerator.WriteToHtml(_operationReports);
-            var link = "http://server1.com/" + _reportName;
+            var link = _reportName;
 
             if (HtmlHasGenerated != null)
                 HtmlHasGenerated(this, new PropertyChangeEventArgs(link));
@@ -215,6 +217,7 @@ namespace CSToolkit.ViewModel
             set
             {
                 _width = value;
+                HalfOfWindowWidth = _width / 2 - 8;
                 OnPropertyChanged("Width");
             }
         }
@@ -306,6 +309,20 @@ namespace CSToolkit.ViewModel
                 OnPropertyChanged("TitleText");
             }
         }
+
+        public double HalfOfWindowWidth
+        {
+            get
+            {
+                return _halfOfWindowWidth;
+            }
+
+            set
+            {
+                _halfOfWindowWidth = value;
+                OnPropertyChanged("HalfOfWindowWidth");
+            }
+        }
         
         #endregion
 
@@ -334,6 +351,8 @@ namespace CSToolkit.ViewModel
         {
             _defaultDirectory = GetDirectoryForSavingReports();            
             ZipGenerator.CreateZipArchive(_operationReports, _defaultDirectory);
+            if (ZiplHasGenerated != null)
+                ZiplHasGenerated();
         }
 
 

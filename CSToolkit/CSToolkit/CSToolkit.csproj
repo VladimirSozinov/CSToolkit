@@ -168,7 +168,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\cws_icon.ico" />
-    <Content Include="Resources\style.css" />
+    <Resource Include="Resources\style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

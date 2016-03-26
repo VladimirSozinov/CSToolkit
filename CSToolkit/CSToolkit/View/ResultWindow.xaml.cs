@@ -18,6 +18,8 @@ namespace CSToolkit.View
 {
     public partial class ResultWindow : Window
     {
+        private string _reportName;
+
         public ResultWindow(string proxy1, string proxy2)
         {
             InitializeComponent();
@@ -34,11 +36,19 @@ namespace CSToolkit.View
 
             viewModel.HideButtonClickedEvent += HideClicked;
             viewModel.HtmlHasGenerated += HtmlHasGenerated;
+            viewModel.ZiplHasGenerated += ZiplHasGenerated;
+        }
+
+        private void ZiplHasGenerated()
+        {
+            ContinueButton.IsEnabled = false;
         }
 
         private void HtmlHasGenerated(object sender, PropertyChangeEventArgs e)
         {
-            ReportUrlText.Text = e.PropertyName;
+            FinishedCommandsLabel.Content = FinishedCommandsLabel.Content + "- See results in HTML format at ";
+            _reportName = e.PropertyName;
+            ReportUrlText.Text = "http://server1.com/" + _reportName;
             ReportUrlLabel.Visibility = Visibility.Visible;
             ReportUrlLabel.IsEnabled = true;
             ContinueButton.IsEnabled = true;
@@ -57,7 +67,7 @@ namespace CSToolkit.View
         private void ReportUrlClicked(object sender, MouseButtonEventArgs e)
         {
             ReportUrlLabel.Foreground = Brushes.Blue;
-           // ConsoleCommandHandler.ExecuteWithoutOutput(GetDefaultBrowserPath(), string.Format("{0}/{1}", _defaultDirectory,_reportName), false);
+            ConsoleCommandHandler.ExecuteWithoutOutput(GetDefaultBrowserPath(), string.Format("{0}", _reportName), false);
         }
 
         private void ReportUrlButtonReleased(object sender, MouseButtonEventArgs e)

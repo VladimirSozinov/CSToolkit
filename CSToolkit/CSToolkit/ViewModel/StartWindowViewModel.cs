@@ -212,7 +212,7 @@ namespace CSToolkit.ViewModel
 
         private bool NameIsValid()
         {
-            return !string.IsNullOrEmpty(UserName) && new Regex(NameRegex).Match(UserName).Success;
+            return !string.IsNullOrEmpty(UserName);
         }
 
         private bool PhoneIsValid()

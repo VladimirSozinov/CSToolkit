@@ -27,8 +27,17 @@ namespace CSToolkit.Tools
                 stringWriter.WriteLine("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1251\">");
                                
                 stringWriter.WriteLine("<style>");
-                StreamReader reader = new StreamReader("../../Resources/style.css");
-                var myStyle = reader.ReadToEnd();
+
+                string myStyle = default(string);
+                try
+                {
+                    using (StreamReader reader = new StreamReader("style.css"))
+                     {
+                         myStyle = reader.ReadToEnd();
+                     }
+                }
+                catch { }
+
                 stringWriter.WriteLine(myStyle);
                 stringWriter.WriteLine("</style>");
 
@@ -48,9 +57,18 @@ namespace CSToolkit.Tools
                 {
                     stringWriter.WriteLine(string.Format("<div class=\"result\" id=\"{0}\">", i + 1));
 
-                    foreach (var e in reports[i].Report)
+
+                    if (i != 0)
                     {
-                        stringWriter.WriteLine("<pre>Results for: \"{0}\" {1}</pre>", e.FullCommand, e.TextReport);
+                        foreach (var e in reports[i].Report)
+                        {
+                            stringWriter.WriteLine("<pre>Results for: \"{0}\" {1}</pre>", e.FullCommand, e.TextReport);
+                        }
+                    }
+
+                    else
+                    {
+                        stringWriter.WriteLine("<pre>Results for: {0}</pre>", reports[i].Report[0].TextReport);
                     }
 
                     stringWriter.WriteLine("</div>");

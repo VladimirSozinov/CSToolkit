@@ -1,7 +1,7 @@
 ﻿<Window x:Class="CSToolkit.View.ResultWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="CWS Diagnostic Tool" Left="{Binding Left, Mode=TwoWay}" Top="{Binding Top, Mode=TwoWay}" Height="{Binding Height, Mode=TwoWay}" Width="{Binding Width, Mode=TwoWay}" Icon="../Resources/cws_icon.ico" MouseLeftButtonDown="OnMouseLeftButtonDown" AllowsTransparency="True" WindowStyle="None">
+        Title="CWS Diagnostic Tool v1.2" Left="{Binding Left, Mode=TwoWay}" Top="{Binding Top, Mode=TwoWay}" Height="{Binding Height, Mode=TwoWay}" Width="{Binding Width, Mode=TwoWay}" Icon="../Resources/cws_icon.ico" MouseLeftButtonDown="OnMouseLeftButtonDown" AllowsTransparency="True" WindowStyle="None">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -24,7 +24,7 @@
             <Grid Grid.Row="0" Background="#d1d1d1">
                 <StackPanel Orientation="Horizontal">
                     <Image Margin="2.5,0,0,0" HorizontalAlignment="Left" Source="../Resources/cws_icon.ico" Width="43" Height="25"></Image>
-                    <Label Margin="5,0,0,0" FontSize="15" Grid.Column="1">CWS Diagnostic Tool</Label>
+                    <Label Margin="5,0,0,0" FontSize="14" Grid.Column="1">CWS Diagnostic Tool v1.2</Label>
                 </StackPanel>
                 <Button Command="{Binding HideCommand}" Style="{StaticResource HideButtonStyle}" Grid.Column="1"></Button>
                 <Button Command="{Binding ExpandCommand}" Style="{StaticResource ExpandButtonStyle}" Grid.Column="1"></Button>
@@ -32,7 +32,7 @@
             </Grid>
             
             <Border Grid.Row="1" BorderThickness="1,1,1,0" BorderBrush="Gray">
-                <Label Name="TitleLabel" Content="{Binding WindowHeaderText, Mode=TwoWay}" Grid.Row="0" FontSize="16" Width="{Binding Path=Width, ElementName=My}" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left"></Label>
+                <Label Name="TitleLabel" Content="{Binding WindowHeaderText, Mode=TwoWay}" Grid.Row="0" FontSize="14" Width="{Binding Path=Width, ElementName=My}" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Left"></Label>
             </Border>
 
             <Border Grid.Row="2" BorderThickness="1" BorderBrush="Gray">
@@ -45,8 +45,8 @@
                         </ListView.Resources>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding CommandName}" Header="Action" Width="425"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding CurrentState}" Header="Status" Width="425"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding CommandName}" Header="Action" Width="{Binding HalfOfWindowWidth}"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding CurrentState}" Header="Status" Width="{Binding HalfOfWindowWidth}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -56,7 +56,7 @@
             <Border Grid.Row="3" BorderThickness="1,0,1,1" BorderBrush="Gray">
                 <Label Name="FinishedCommandsLabel" FontSize="14" Width="Auto" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Content="{Binding ResultText}" Margin="20,0,0,0"></Label>
                 </Border>
-            <Label Grid.Row="3" Name="ReportUrlLabel" FontSize="14" Width="300" Foreground="MediumBlue" HorizontalContentAlignment="Left" HorizontalAlignment="Left" MouseLeftButtonDown="ReportUrlClicked" MouseLeftButtonUp="ReportUrlButtonReleased" IsEnabled="False" Visibility="Hidden" Margin="245,0,0,0">
+            <Label Grid.Row="3" Name="ReportUrlLabel" FontSize="14" Width="300" Foreground="MediumBlue" HorizontalContentAlignment="Left" HorizontalAlignment="Left" MouseLeftButtonDown="ReportUrlClicked" MouseLeftButtonUp="ReportUrlButtonReleased" IsEnabled="False" Visibility="Hidden" Margin="406,0,0,0">
                 <TextBlock Name="ReportUrlText" TextDecorations="Underline"></TextBlock>
             </Label>
 
