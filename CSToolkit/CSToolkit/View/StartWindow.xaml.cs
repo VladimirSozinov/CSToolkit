@@ -1,6 +1,8 @@
 ﻿using CSToolkit.ViewModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CSToolkit.View
 {
@@ -20,6 +22,38 @@ namespace CSToolkit.View
                 return;
 
             viewModel.HideButtonClickedEvent += HideClicked;
+            viewModel.NameIsValidEvent += viewModelNameIsValidEvent;
+            viewModel.SerialNumberIsValidEvent += viewModelSerialNumberIsValidEvent;
+        }
+
+        private void viewModelNameIsValidEvent(object sender, DataValidationEventArgs e)
+        {
+            if (e.IsValid)
+            {
+                BrushConverter bc = new BrushConverter();
+                CustomerNameTextBox.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                CustomerNameTextBox.ToolTip = null;
+            }
+            else
+            {
+                CustomerNameTextBox.BorderBrush = Brushes.Red;
+                CustomerNameTextBox.ToolTip = "Incorrect Value";
+            }
+        }
+
+        private void viewModelSerialNumberIsValidEvent(object sender, DataValidationEventArgs e)
+        {
+            if (e.IsValid)
+            {
+                BrushConverter bc = new BrushConverter();
+                SerialNumberTextBox.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                SerialNumberTextBox.ToolTip = null;
+            }
+            else
+            {
+                SerialNumberTextBox.BorderBrush = Brushes.Red;
+                SerialNumberTextBox.ToolTip = "Incorrect Value";
+            }
         }
 
         private void HideClicked()

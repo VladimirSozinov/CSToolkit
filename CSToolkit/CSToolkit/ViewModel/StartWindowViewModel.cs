@@ -7,7 +7,7 @@ using CSToolkit.View;
 
 namespace CSToolkit.ViewModel
 {
-    public class StartWindowViewModel : BaseViewModel, IDataErrorInfo
+    public class StartWindowViewModel : BaseViewModel
     {
         private string _userName;
         private string _phoneNumber;
@@ -26,6 +26,11 @@ namespace CSToolkit.ViewModel
         private Visibility _windowVisibility;
         private bool _windowIsMax;
 
+        public delegate void CustomHandler(object sender, DataValidationEventArgs isValid);
+                                         
+        public event CustomHandler NameIsValidEvent;
+        public event CustomHandler SerialNumberIsValidEvent;
+
         public StartWindowViewModel(double left, double top)
         {
             Left = left;
@@ -34,34 +39,61 @@ namespace CSToolkit.ViewModel
             BindCommands();
         }
 
-        #region IDataErrorInfo Members
-
-        public string Error
+        private void SetDefaultWindowDimensions()
         {
-            get { throw new NotImplementedException(); }
+            Height = DefaultWindowHeight;
+            Width = DefaultWindowWidth;
         }
 
-        public string this[string columnName]
+        private void BindCommands()
         {
-            get
+            ExpandCommand = new RelayCommand(arg => ExpandButtonClicked());
+            CloseCommand = new RelayCommand(arg => CloseButtonClicked());
+            ContinueCommand = new RelayCommand(arg => ContinueButtonClicked());
+            ExitCommand = new RelayCommand(arg => ExitButtonClicked());
+            HideCommand = new RelayCommand(arg => HideButtonClicked());
+        }
+
+        protected override void ContinueButtonClicked()
+        {
+            if (!DataIsValid())
+                return;
+
+            if (NeedToInstallWinPcap)
+                ConsoleCommandHandler.ExecuteWithoutOutput("WinPcap_4_1_2.exe", "", true);
+
+            var viewModel = new SecondWindowViewModel(Left, Top, Width, Height);
+            UserInfo.SetUserInfo(UserName, PhoneNumber, EmailAdress);
+
+            var view = new SecondWindow { DataContext = viewModel };
+            view.Show();
+            WindowVisibility = Visibility.Hidden;
+        }
+
+        protected override void ExpandButtonClicked()
+        {
+            var workingArea = SystemParameters.WorkArea;
+
+            if (_windowIsMax == false)
             {
-                if (columnName == "UserName")
-                {
-                    if (!NameIsValid()) return "Incorrect value";
-                }
-
-                if (columnName == "PhoneNumber")
-                {
-                    if (!PhoneIsValid()) return "Incorrect value";
-                }
-
-                return null;
+                Height = workingArea.Height;
+                Width = workingArea.Width;
+                _lastLeft = Left;
+                _lastTop = Top;
+                Left = workingArea.Right - Width;
+                Top = workingArea.Bottom - Height;
+                _windowIsMax = true;
+            }
+            else
+            {
+                SetDefaultWindowDimensions();
+                Left = _lastLeft;
+                Top = _lastTop;
+                _windowIsMax = false;
             }
         }
 
-        #endregion
-
-        #region Public properties
+    #region Public properties
 
         public string UserName
         { 
@@ -157,57 +189,33 @@ namespace CSToolkit.ViewModel
 
         #endregion
 
-        protected override void ExpandButtonClicked()
-        {
-            var workingArea = SystemParameters.WorkArea;
+    #region DataValidation
 
-            if (_windowIsMax == false)
+        private bool DataIsValid()
+        {
+            bool isValid = true;
+
+            if (!NameIsValid())
             {
-                Height = workingArea.Height;
-                Width = workingArea.Width;
-                _lastLeft = Left;
-                _lastTop = Top;
-                Left = workingArea.Right - Width;
-                Top = workingArea.Bottom - Height;
-                _windowIsMax = true;
+                isValid = false;
+                NameIsValidEvent(this, new DataValidationEventArgs(false));
             }
             else
             {
-                SetDefaultWindowDimensions();
-                Left = _lastLeft;
-                Top = _lastTop;
-                _windowIsMax = false;
+                NameIsValidEvent(this, new DataValidationEventArgs(true));
             }
-        }
 
-        protected override void ContinueButtonClicked()
-        {
-            if (!NameIsValid() || !PhoneIsValid()) return;
+            if (!PhoneIsValid())
+            {
+                isValid = false;
+                SerialNumberIsValidEvent(this, new DataValidationEventArgs(false));
+            }
+            else
+            {
+                SerialNumberIsValidEvent(this, new DataValidationEventArgs(true));
+            }
 
-            if (NeedToInstallWinPcap)
-                ConsoleCommandHandler.ExecuteWithoutOutput("WinPcap_4_1_2.exe", "", true);
-
-            var viewModel = new SecondWindowViewModel(Left, Top, Width, Height);
-            UserInfo.SetUserInfo(UserName, PhoneNumber, EmailAdress);
-
-            var view = new SecondWindow { DataContext = viewModel };
-            view.Show(); 
-            WindowVisibility = Visibility.Hidden;
-        }
-
-        private void SetDefaultWindowDimensions()
-        {
-            Height = DefaultWindowHeight;
-            Width = DefaultWindowWidth;
-        }
-
-        private void BindCommands()
-        {
-            ExpandCommand = new RelayCommand(arg => ExpandButtonClicked());
-            CloseCommand = new RelayCommand(arg => CloseButtonClicked());
-            ContinueCommand = new RelayCommand(arg => ContinueButtonClicked());
-            ExitCommand = new RelayCommand(arg => ExitButtonClicked());
-            HideCommand = new RelayCommand(arg => HideButtonClicked());
+            return isValid;
         }
 
         private bool NameIsValid()
@@ -219,5 +227,7 @@ namespace CSToolkit.ViewModel
         {
             return !string.IsNullOrEmpty(PhoneNumber) && new Regex(PhoneNumberRegex).Match(PhoneNumber).Success;
         }
+
+    #endregion
     }
 }

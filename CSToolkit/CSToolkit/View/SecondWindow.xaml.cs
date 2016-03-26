@@ -23,6 +23,38 @@ namespace CSToolkit.View
                 return;
 
             viewModel.HideButtonClickedEvent += HideClicked;
+            viewModel.Proxy1IsValidEvent += viewModelProxy1IsValidEvent;
+            viewModel.Proxy2IsValidEvent += viewModelProxy2IsValidEvent;
+        }
+
+        private void viewModelProxy1IsValidEvent(object sender, DataValidationEventArgs e)
+        {
+            if (e.IsValid)
+            {
+                BrushConverter bc = new BrushConverter();
+                Proxy1TextBox.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                Proxy1TextBox.ToolTip = null;
+            }
+            else
+            {
+                Proxy1TextBox.BorderBrush = Brushes.Red;
+                Proxy1TextBox.ToolTip = "Incorrect Value";
+            }
+        }
+
+        private void viewModelProxy2IsValidEvent(object sender, DataValidationEventArgs e)
+        {
+            if (e.IsValid)
+            {
+                BrushConverter bc = new BrushConverter();
+                Proxy2TextBox.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                Proxy2TextBox.ToolTip = null;
+            }
+            else
+            {
+                Proxy2TextBox.BorderBrush = Brushes.Red;
+                Proxy2TextBox.ToolTip = "Incorrect Value";
+            }
         }
 
         private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

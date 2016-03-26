@@ -108,6 +108,7 @@
     <Compile Include="Validators\ProxyRules.cs" />
     <Compile Include="Validators\StartWindowValidator.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\CustomEventArgs.cs" />
     <Compile Include="ViewModel\IDataErrorInfo.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\ResultWindowViewModel.cs" />

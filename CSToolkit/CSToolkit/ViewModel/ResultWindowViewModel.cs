@@ -14,16 +14,6 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace CSToolkit.ViewModel
 {
-    public class PropertyChangeEventArgs : EventArgs
-    {
-        public string PropertyName { get; internal set; }
-
-        public PropertyChangeEventArgs(string propertyName)
-        {
-            PropertyName = propertyName;
-        }
-    }
-    
     public class ResultWindowViewModel : BaseViewModel
     {
         private string _proxy1;

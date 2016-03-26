@@ -50,12 +50,12 @@
 
                     <DockPanel Grid.Row="0">
                         <Label>Customer Name</Label>
-                        <TextBox Name="FullNameTextBox" Text="{Binding Path=UserName, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <TextBox Name="CustomerNameTextBox" Text="{Binding Path=UserName, Mode=TwoWay, ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     </DockPanel>
 
                     <DockPanel Grid.Row="1">
                         <Label>SR Number</Label>
-                        <TextBox Name="PhoneNumberTextBox" Text="{Binding Path=PhoneNumber, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <TextBox Name="SerialNumberTextBox" Text="{Binding Path=PhoneNumber, Mode=TwoWay, ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     </DockPanel>
 
                     <DockPanel Grid.Row="2">
