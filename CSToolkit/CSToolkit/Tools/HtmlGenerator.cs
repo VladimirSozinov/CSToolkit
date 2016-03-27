@@ -43,7 +43,8 @@ namespace CSToolkit.Tools
 
                 stringWriter.WriteLine("</head>");
                 stringWriter.WriteLine("<body>");
-                stringWriter.WriteLine("<h1 id=\"top\">Diagnostic report.</h1>");
+                stringWriter.WriteLine("<h1 id=\"top\">Diagnostic Report</h1>");
+                stringWriter.WriteLine("<h3 id=\"top\">Click on any the tests below to see its results:</h3>");
                 stringWriter.WriteLine("<ul class=\"menu\">");
 
                 foreach(var link in GetLinks(reports))
@@ -55,14 +56,13 @@ namespace CSToolkit.Tools
 
                 for (int i = 0; i < reports.Count; i++)
                 {
-                    stringWriter.WriteLine(string.Format("<div class=\"result\" id=\"{0}\">", i + 1));
-
+                    stringWriter.WriteLine(string.Format("<div class=\"result\" id=\"{0}\">", i + 1)); 
 
                     if (i != 0)
                     {
                         foreach (var e in reports[i].Report)
                         {
-                            stringWriter.WriteLine("<pre>Results for: \"{0}\" {1}</pre>", e.FullCommand, e.TextReport);
+                            stringWriter.WriteLine("<pre>Results for: \"{0}\"\n{1}</pre>", e.FullCommand, e.TextReport);
                         }
                     }
 

@@ -52,21 +52,15 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <DockPanel Grid.Row="0">
-                        <Label>Primary Proxy</Label>
-                        <TextBox Name="Proxy1TextBox" Text="{Binding Path=Proxy1, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                    </DockPanel>
-
-                    <DockPanel Grid.Row="1">
-                        <Label>Secondary Proxy</Label>
-                        <TextBox Name="Proxy2TextBox" Text="{Binding Path=Proxy2, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                    </DockPanel>
-
-                    <DockPanel Grid.Row="2">
-                        <Label>Ping Host</Label>
-                        <TextBox Name="PingHostTextBox" Text="{Binding Path=PingHostText, Mode=TwoWay, ValidatesOnDataErrors=true, UpdateSourceTrigger=PropertyChanged}" PreviewMouseUp="PingHostPreviewMouseUp" PreviewLostKeyboardFocus ="PingHostPreviewMouseDown"></TextBox>
-                    </DockPanel>
-
+                        <Label Grid.Row="0">Primary Proxy</Label>
+                        <TextBox Name="Proxy1TextBox" Margin="125,0,0,0" Grid.Row="0" Text="{Binding Path=Proxy1, Mode=TwoWay}"></TextBox>
+                   
+                        <Label Grid.Row="1">Secondary Proxy</Label>
+                        <TextBox Name="Proxy2TextBox" Margin="125,0,0,0" Grid.Row="1" Text="{Binding Path=Proxy2, Mode=TwoWay}"></TextBox>
+                    
+                        <Label Grid.Row="2">Ping Host</Label>
+                        <TextBox Name="PingHostTextBox" Margin="125,0,0,0" Grid.Row="2" Text="{Binding Path=PingHostText, Mode=TwoWay}" PreviewMouseUp="PingHostPreviewMouseUp" PreviewLostKeyboardFocus ="PingHostPreviewMouseDown"></TextBox>
+                   
                 </Grid>
             </Grid>
 

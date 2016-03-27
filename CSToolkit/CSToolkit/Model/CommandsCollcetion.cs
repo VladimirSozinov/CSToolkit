@@ -60,14 +60,17 @@ namespace CSToolkit.Model
             _setCommands.Add(executingTraceroute);
 
             var executingPing = new List<SubCommand>();
-            executingPing.Add(new SubCommand(@"bin\ping\tcping.exe", string.Format(@"-n 10 -w 500 {0} 80", host)));//1000
-            executingPing.Add(new SubCommand(@"bin\ping\tcping.exe", string.Format(@"-n 10 -w 500 {0} 80", host)));
-            executingPing.Add(new SubCommand(@"ping", string.Format(@"-t -n 10 {0}", host)));
+            executingPing.Add(new SubCommand(@"ping", string.Format(@"-t -n 100 {0}", host)));
+            executingPing.Add(new SubCommand(@"bin\ping\tcping.exe", string.Format(@"-n 100 -w 500 {0} 80", host)));//1000
+            executingPing.Add(new SubCommand(@"bin\ping\tcping.exe", string.Format(@"-n 100 -w 500 {0} 8080", proxy1))); 
+            executingPing.Add(new SubCommand(@"bin\ping\tcping.exe", string.Format(@"-n 100 -w 500 {0} 8080", proxy2)));  
+            executingPing.Add(new SubCommand(@"bin\ping\http-ping.exe", string.Format(@"-v -c -d -q -n 100 {0}", host)));
             _setCommands.Add(executingPing);
 
-            var executingMtr = new List<SubCommand>();
-            executingMtr.Add(new SubCommand(@"bin\mtr\Release_x64\WinMTRCmd.exe", string.Format(@"-c 10 -t 2 --report {0}", host)));
-            executingMtr.Add(new SubCommand(@"bin\mtr\Release_x32\WinMTRCmd.exe", string.Format(@"-c 10 -t 2 --report {0}", host)));
+            var executingMtr = new List<SubCommand>();                                                                                                                                              
+            executingMtr.Add(new SubCommand(@"bin\mtr\Release_x64\WinMTRCmd.exe", string.Format(@"-c 100 -t 2 --report {0}", proxy1)));
+            executingMtr.Add(new SubCommand(@"bin\mtr\Release_x64\WinMTRCmd.exe", string.Format(@"-c 100 -t 2 --report {0}", proxy2)));
+            executingMtr.Add(new SubCommand(@"bin\mtr\Release_x64\WinMTRCmd.exe", string.Format(@"-c 100 -t 2 --report {0}", host)));
             _setCommands.Add(executingMtr);
 
             var executingCurl = new List<SubCommand>();

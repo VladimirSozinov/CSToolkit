@@ -34,6 +34,7 @@ namespace CSToolkit.ViewModel
 
         public event CustomHandler Proxy1IsValidEvent;
         public event CustomHandler Proxy2IsValidEvent;
+        public event CustomHandler PingHostIsValidEvent;
 
         public SecondWindowViewModel(double left, double top, double width, double height)
         {
@@ -163,6 +164,7 @@ namespace CSToolkit.ViewModel
                 isValid = false;
                 Proxy1IsValidEvent(this, new DataValidationEventArgs(false));
             }
+
             else
             {
                 Proxy1IsValidEvent(this, new DataValidationEventArgs(true));
@@ -173,14 +175,33 @@ namespace CSToolkit.ViewModel
                 isValid = false;
                 Proxy2IsValidEvent(this, new DataValidationEventArgs(false));
             }
+
             else
             {
                 Proxy2IsValidEvent(this, new DataValidationEventArgs(true));
             }
 
-            return isValid;
-        }
+            if (string.IsNullOrEmpty(PingHostText))
+            {
+                PingHostText = "www.google.com";
+            }
 
+            else
+            {  
+                if (!rules.IsPingHostValid(PingHostText))
+                {
+                    isValid = false;
+                    PingHostIsValidEvent(this, new DataValidationEventArgs(false));
+                }
+
+                else
+                {
+                    PingHostIsValidEvent(this, new DataValidationEventArgs(true));
+                }
+            }
+                                      
+            return isValid;
+        }  
         #endregion
     }
 }

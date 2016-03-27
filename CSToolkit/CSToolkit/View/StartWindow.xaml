@@ -48,21 +48,15 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <DockPanel Grid.Row="0">
-                        <Label>Customer Name</Label>
-                        <TextBox Name="CustomerNameTextBox" Text="{Binding Path=UserName, Mode=TwoWay, ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                    </DockPanel>
-
-                    <DockPanel Grid.Row="1">
-                        <Label>SR Number</Label>
-                        <TextBox Name="SerialNumberTextBox" Text="{Binding Path=PhoneNumber, Mode=TwoWay, ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                    </DockPanel>
-
-                    <DockPanel Grid.Row="2">
-                        <Label>CEC ID(Optional)</Label>
-                        <TextBox Name="EmailAdressTextBox" Text="{Binding Path=EmailAdress, Mode=TwoWay}"></TextBox>
-                    </DockPanel>
+                        <Label Grid.Row="0">Customer Name</Label>
+                        <TextBox Name="CustomerNameTextBox" Margin="125,0,0,0" Grid.Row="0" Text="{Binding Path=UserName, Mode=TwoWay}"></TextBox>
+                   
+                        <Label Grid.Row="1">SR Number</Label>
+                        <TextBox Name="SerialNumberTextBox" Margin="125,0,0,0" Grid.Row="1" Text="{Binding Path=PhoneNumber, Mode=TwoWay}"></TextBox>
                     
+                        <Label Grid.Row="2">CEC ID(Optional)</Label>
+                        <TextBox Grid.Row="2" Margin="125,0,0,0" Text="{Binding Path=EmailAdress, Mode=TwoWay}"></TextBox>
+                                       
                     <Label Grid.Row="3" Width="210">Install WinPcap (required)</Label>
                     <CheckBox Grid.Row="3" Name="InstallWinPcapCheckBox" IsChecked="{Binding NeedToInstallWinPcap}" HorizontalAlignment="Left" Margin="255,0,0,0" VerticalAlignment="Center"></CheckBox>
                 </Grid>

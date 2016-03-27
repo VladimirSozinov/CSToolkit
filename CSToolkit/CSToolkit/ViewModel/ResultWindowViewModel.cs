@@ -90,7 +90,7 @@ namespace CSToolkit.ViewModel
             _operations = new ObservableCollection<Operation>();
             _operationReports = new List<OperationReport>();
             WindowHeaderText = string.Format("Results for Primary Proxy= {0} & Secondary Proxy = {1}", Proxy1, Proxy2);
-            ResultText = string.Format("Finished 0 out of {0} commands", _operations.Count);
+            ResultText = string.Format("Finished 0 out of {0} tests", _operations.Count);
         }
 
         private void StartProcessing()
@@ -155,7 +155,7 @@ namespace CSToolkit.ViewModel
 
             App.Current.Dispatcher.Invoke((Action)delegate
             {
-                ResultText = string.Format("Finished {0} out of {1} commands", count, _operations.Count);
+                ResultText = string.Format("Finished {0} out of {1} tests", count, _operations.Count);
 
                 if (count == _operations.Count)
                 {
