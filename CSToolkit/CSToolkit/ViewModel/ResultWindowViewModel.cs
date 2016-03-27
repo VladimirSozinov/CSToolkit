@@ -38,12 +38,15 @@ namespace CSToolkit.ViewModel
         private string _defaultDirectory;
         private string _reportName;
         private string _titleText;
+        private string _linkButtonText;
         private BackgroundWorker worker;
         private double _halfOfWindowWidth;
 
-        public event CustomHandler HtmlHasGenerated;
+        public event Action HtmlHasGenerated;
         public event Action ZiplHasGenerated;
         public delegate void CustomHandler(object sender, PropertyChangeEventArgs data);
+                                         
+        public ICommand LinkCommand { get; set; }
 
         public ResultWindowViewModel(double left, double top, string proxy1, string proxy2, string pingHost)
         {
@@ -63,6 +66,7 @@ namespace CSToolkit.ViewModel
             CloseCommand = new RelayCommand(arg => CloseButtonClicked());
             ContinueCommand = new RelayCommand(arg => ContinueButtonClicked());
             ExitCommand = new RelayCommand(arg => ExitButtonClicked());
+            LinkCommand = new RelayCommand(arg => LinkButtonCliced());
         }
 
         private void SetDefaultConstraints()
@@ -168,15 +172,21 @@ namespace CSToolkit.ViewModel
 
         private void GenerateHtmlReport()
         {
+            AddReportForUserInfo();        
+            _reportName = HtmlGenerator.WriteToHtml(_operationReports);
+            ResultText += "- See results in HTML format at ";
+            LinkButtonText = "http://server1.com/" + _reportName;
+
+            if (HtmlHasGenerated != null)
+                HtmlHasGenerated();
+        }
+
+        private void AddReportForUserInfo()
+        {
             UserInfo.CurrentDate = GetCurrentDate();//UserInfo CurrentDate setting
             var listReports = new List<Report>();
             listReports.Add(new Report("user data collecting", UserInfo.GetInfoForReport()));//Adding report for UserInfo
             _operationReports[0] = new OperationReport(_operationReports[0].Operation, listReports);
-            _reportName = HtmlGenerator.WriteToHtml(_operationReports);
-            var link = _reportName;
-
-            if (HtmlHasGenerated != null)
-                HtmlHasGenerated(this, new PropertyChangeEventArgs(link));
         }
                 
         #region Public properties
@@ -313,6 +323,20 @@ namespace CSToolkit.ViewModel
                 OnPropertyChanged("HalfOfWindowWidth");
             }
         }
+
+        public string LinkButtonText
+        {
+            get
+            {
+                return _linkButtonText;
+            }
+
+            set
+            {
+                _linkButtonText = value;
+                OnPropertyChanged("LinkButtonText");
+            }
+        }
         
         #endregion
 
@@ -345,6 +369,11 @@ namespace CSToolkit.ViewModel
                 ZiplHasGenerated();
         }
 
+        private void LinkButtonCliced()
+        {
+            ConsoleCommandHandler.ExecuteWithoutOutput(GetDefaultBrowserPath(), string.Format(@"{0}", _reportName), false);
+        }
+
 
         private string GetDirectoryForSavingReports()
         {
@@ -366,17 +395,6 @@ namespace CSToolkit.ViewModel
             catch { }
 
             return targetDirectory;
-        }
-
-        private void ReportUrlClicked(object sender, MouseButtonEventArgs e)
-        {
-            //ReportUrlLabel.Foreground = Brushes.Blue;
-            ConsoleCommandHandler.ExecuteWithoutOutput(GetDefaultBrowserPath(), string.Format(@"{0}\{1}", _defaultDirectory, _reportName), false);
-        }
-
-        private void ReportUrlButtonReleased(object sender, MouseButtonEventArgs e)
-        {
-            //ReportUrlLabel.Foreground = Brushes.MediumBlue;
         }
 
         private string GetDefaultBrowserPath()

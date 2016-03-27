@@ -54,12 +54,12 @@
             </Border>
 
             <Border Grid.Row="3" BorderThickness="1,0,1,1" BorderBrush="Gray">
-                <Label Name="FinishedCommandsLabel" FontSize="14" Width="Auto" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Content="{Binding ResultText}" Margin="20,0,0,0"></Label>
-                </Border>
-            <Label Grid.Row="3" Name="ReportUrlLabel" FontSize="14" Width="300" Foreground="MediumBlue" HorizontalContentAlignment="Left" HorizontalAlignment="Left" MouseLeftButtonDown="ReportUrlClicked" MouseLeftButtonUp="ReportUrlButtonReleased" IsEnabled="False" Visibility="Hidden" Margin="406,0,0,0">
-                <TextBlock Name="ReportUrlText" TextDecorations="Underline"></TextBlock>
-            </Label>
-
+                <StackPanel Orientation="Horizontal">
+                    <Label Name="FinishedCommandsLabel" FontSize="14" Width="Auto" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Content="{Binding ResultText}" Margin="20,0,0,0"></Label>
+                    <Button Grid.Row="3" Name="LinkButton" VerticalAlignment="Center" Command="{Binding LinkCommand}" Style="{StaticResource Link}" Content="{Binding LinkButtonText}"></Button>
+                </StackPanel>
+            </Border>
+            
             <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Name="ContinueButton" Command="{Binding ContinueCommand}" Style="{StaticResource GeneralButtonStyle}" Margin="0,0,20,0" IsEnabled="False">Generate report</Button>
                 <Button Name="ExitButton" Command="{Binding ExitCommand}" Style="{StaticResource GeneralButtonStyle}" Margin="20,0,0,0">Finish</Button>
