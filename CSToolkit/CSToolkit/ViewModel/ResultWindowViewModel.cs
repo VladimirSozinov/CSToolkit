@@ -299,7 +299,7 @@ namespace CSToolkit.ViewModel
         protected override void ContinueButtonClicked()
         {
             var _defaultDirectory = new DialogManager().GetDirectoryForSavingReportsDialog();            
-            ZipGenerator.CreateZipArchive(_operationReports, _defaultDirectory);
+            ZipGenerator.CreateZipArchive(_operationReports, _defaultDirectory, _reportName);
 
             if (ZiplHasGenerated != null)
                 ZiplHasGenerated();

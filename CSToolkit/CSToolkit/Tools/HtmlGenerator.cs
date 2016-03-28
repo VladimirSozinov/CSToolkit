@@ -64,7 +64,8 @@ namespace CSToolkit.Tools
 
                     else
                     {
-                        stringWriter.WriteLine("<pre>Results for: {0}</pre>", reports[i].Report[0].TextReport);
+                        stringWriter.WriteLine("<pre class=\"SpecialBold\">Results for:</pre>");
+                        stringWriter.WriteLine("<pre>{0}</pre>", reports[i].Report[0].TextReport);
                     }
 
                     stringWriter.WriteLine("</div>");

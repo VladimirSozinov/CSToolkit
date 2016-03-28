@@ -7,7 +7,7 @@ namespace CSToolkit.Tools
 {
     public class ZipGenerator
     {
-        public static void CreateZipArchive(List<OperationReport> operations, string directory)
+        public static void CreateZipArchive(List<OperationReport> operations, string directory, string htmlName)
         {
             for (int i = 0; i < operations.Count; i++)
             {
@@ -41,6 +41,12 @@ namespace CSToolkit.Tools
                 ConsoleCommandHandler.ExecuteWithoutOutput(@"bin\zip\zip.exe", string.Format(@"{0}/Report-{1}.zip {2}.txt", directory, UserInfo.CurrentDate, operation.Operation), false);
                 File.Delete(string.Format("{0}.txt", operation.Operation));
             }
+
+            try
+            {
+                ConsoleCommandHandler.ExecuteWithoutOutput(@"bin\zip\zip.exe", string.Format(@"{0}/Report-{1}.zip {2}", directory, UserInfo.CurrentDate, htmlName), false);
+            }
+            catch (SystemException ex) { }
         }
     }
 }
