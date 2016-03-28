@@ -32,8 +32,7 @@ namespace CSToolkit.View
         {
             if (e.IsValid)
             {
-                BrushConverter bc = new BrushConverter();
-                Proxy1TextBox.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                Proxy1TextBox.BorderBrush = (Brush)new BrushConverter().ConvertFrom("#FFABADB3");
                 Proxy1TextBox.ToolTip = null;
             }
             else
@@ -47,8 +46,7 @@ namespace CSToolkit.View
         {
             if (e.IsValid)
             {
-                BrushConverter bc = new BrushConverter();
-                Proxy2TextBox.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                Proxy2TextBox.BorderBrush = (Brush)new BrushConverter().ConvertFrom("#FFABADB3");
                 Proxy2TextBox.ToolTip = null;
             }
             else
@@ -62,8 +60,7 @@ namespace CSToolkit.View
         {
             if (e.IsValid)
             {
-                BrushConverter bc = new BrushConverter();
-                PingHostTextBox.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                PingHostTextBox.BorderBrush = (Brush)new BrushConverter().ConvertFrom("#FFABADB3");
                 PingHostTextBox.ToolTip = null;
             }
             else
@@ -86,7 +83,6 @@ namespace CSToolkit.View
         private void PingHostPreviewMouseUp(object sender, EventArgs args)
         {
             PingHostTextBox.Foreground = Brushes.Black;
-            //PingHostTextBox.Text = "";
         }
 
         private void PingHostPreviewMouseDown(object sender, EventArgs args)

@@ -24,7 +24,7 @@
 
             <Grid Grid.Row="0" Background="#d1d1d1">
                 <StackPanel Orientation="Horizontal">
-                    <Image Margin="2.5,0,0,0" HorizontalAlignment="Left" Source="../Resources/cws_icon.ico" Width="43" Height="25"></Image>
+                    <Image></Image>
                     <Label Margin="5,0,0,0" FontSize="14" Grid.Column="1">CWS Diagnostic Tool v1.2</Label>
                 </StackPanel>
                 <Button Command="{Binding HideCommand}" Style="{StaticResource HideButtonStyle}"></Button>
@@ -53,13 +53,13 @@
                     </Grid.RowDefinitions>
 
                         <Label Grid.Row="0">Primary Proxy</Label>
-                        <TextBox Name="Proxy1TextBox" Margin="125,0,0,0" Grid.Row="0" Text="{Binding Path=Proxy1, Mode=TwoWay}"></TextBox>
+                        <TextBox Name="Proxy1TextBox" Margin="145,0,35,0" Grid.Row="0" Text="{Binding Path=Proxy1, Mode=TwoWay}"></TextBox>
                    
                         <Label Grid.Row="1">Secondary Proxy</Label>
-                        <TextBox Name="Proxy2TextBox" Margin="125,0,0,0" Grid.Row="1" Text="{Binding Path=Proxy2, Mode=TwoWay}"></TextBox>
+                        <TextBox Name="Proxy2TextBox" Margin="145,0,35,0" Grid.Row="1" Text="{Binding Path=Proxy2, Mode=TwoWay}"></TextBox>
                     
                         <Label Grid.Row="2">Ping Host</Label>
-                        <TextBox Name="PingHostTextBox" Margin="125,0,0,0" Grid.Row="2" Text="{Binding Path=PingHostText, Mode=TwoWay}" PreviewMouseUp="PingHostPreviewMouseUp" PreviewLostKeyboardFocus ="PingHostPreviewMouseDown"></TextBox>
+                        <TextBox Name="PingHostTextBox" Margin="145,0,35,0" Grid.Row="2" Text="{Binding Path=PingHostText, Mode=TwoWay}" PreviewMouseUp="PingHostPreviewMouseUp" PreviewLostKeyboardFocus ="PingHostPreviewMouseDown" Foreground="#FFABADB3"></TextBox>
                    
                 </Grid>
             </Grid>

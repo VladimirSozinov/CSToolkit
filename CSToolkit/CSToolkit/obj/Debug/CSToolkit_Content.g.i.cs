@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/style.css")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/cws_icon.ico")]
 
 

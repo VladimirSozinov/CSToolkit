@@ -161,6 +161,14 @@
         <Setter Property="FontFamily" Value="Arial"/>
         <Setter Property="FontSize" Value="14"/>
     </Style>
+    
+    <Style TargetType="Image">
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="Width" Value="25"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="5,0,0,0"/>
+        <Setter Property="Source" Value="../Resources/cws_icon.ico"/>
+    </Style>
 
     <Style TargetType="TextBox">
         <Setter Property="MaxLength" Value="170"/>

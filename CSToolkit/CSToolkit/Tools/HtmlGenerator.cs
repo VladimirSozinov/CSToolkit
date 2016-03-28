@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSToolkit.Tools
 {
@@ -24,11 +21,10 @@ namespace CSToolkit.Tools
                 StringWriter stringWriter = new StringWriter();
                 stringWriter.WriteLine("<html>");
                 stringWriter.WriteLine("<head>");
-                stringWriter.WriteLine("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1251\">");
-                               
-                stringWriter.WriteLine("<style>");
-
+                stringWriter.WriteLine("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1251\">");                              
+                stringWriter.WriteLine("<style>"); 
                 string myStyle = default(string);
+
                 try
                 {
                     using (StreamReader reader = new StreamReader("style.css"))
@@ -39,12 +35,11 @@ namespace CSToolkit.Tools
                 catch { }
 
                 stringWriter.WriteLine(myStyle);
-                stringWriter.WriteLine("</style>");
-
+                stringWriter.WriteLine("</style>");  
                 stringWriter.WriteLine("</head>");
                 stringWriter.WriteLine("<body>");
                 stringWriter.WriteLine("<h1 id=\"top\">Diagnostic Report</h1>");
-                stringWriter.WriteLine("<h3 id=\"top\">Click on any the tests below to see its results:</h3>");
+                stringWriter.WriteLine("<h3 id=\"top\">Click on any of the tests below to see its results:</h3>");
                 stringWriter.WriteLine("<ul class=\"menu\">");
 
                 foreach(var link in GetLinks(reports))
@@ -62,7 +57,8 @@ namespace CSToolkit.Tools
                     {
                         foreach (var e in reports[i].Report)
                         {
-                            stringWriter.WriteLine("<pre>Results for: \"{0}\"\n{1}</pre>", e.FullCommand, e.TextReport);
+                            stringWriter.WriteLine("<pre class=\"SpecialBold\">Results for: \"{0}\"</pre>", e.FullCommand);
+                            stringWriter.WriteLine("<pre>{0}</pre>", e.TextReport);
                         }
                     }
 
@@ -75,8 +71,7 @@ namespace CSToolkit.Tools
                     stringWriter.WriteLine("<p class=\"backtotop\"><a href=\"#top\">back to top</a></p>");
                 }
 
-                stringWriter.WriteLine("</body></html>");
-
+                stringWriter.WriteLine("</body></html>");   
                 var suffix = stringWriter.ToString().GetHashCode();
                 _reportName = string.Format("Report{0}.html", suffix);
 

@@ -23,7 +23,7 @@
 
             <Grid Grid.Row="0" Background="#d1d1d1">
                 <StackPanel Orientation="Horizontal">
-                    <Image Margin="2.5,0,0,0" HorizontalAlignment="Left" Source="../Resources/cws_icon.ico" Width="43" Height="25"></Image>
+                    <Image></Image>
                     <Label Margin="5,0,0,0" FontSize="14" Grid.Column="1">CWS Diagnostic Tool v1.2</Label>
                 </StackPanel>
                 <Button Command="{Binding HideCommand}" Style="{StaticResource HideButtonStyle}" Grid.Column="1"></Button>

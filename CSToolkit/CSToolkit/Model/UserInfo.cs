@@ -22,7 +22,14 @@ namespace CSToolkit.Model
 
         public static string GetInfoForReport()
         {
+            CurrentDate = GetCurrentDate();
             return string.Format("\nCustomer name: {0}\nSerial number: {1}\nCecId: {2}\nCurrent date: {3}", CustomerName, SrNumber, CecId, CurrentDate);
+        }
+
+        private static string GetCurrentDate()
+        {
+            var date = DateTime.Now;
+            return String.Format(@"{0}-{1}GMT", date.ToString("ddMMMMyyyy"), date.ToString("HHmm"));
         }
     }
 }

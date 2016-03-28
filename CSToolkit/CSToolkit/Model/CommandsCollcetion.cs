@@ -54,9 +54,9 @@ namespace CSToolkit.Model
             executingTraceroute.Add(new SubCommand(@"tracert", string.Format(@"-w 500 {0}", proxy1)));
             executingTraceroute.Add(new SubCommand(@"tracert", string.Format(@"-w 500 {0}", proxy2)));
             executingTraceroute.Add(new SubCommand(@"tracert", string.Format(@"-w 500 {0}", proxy2)));
-            executingTraceroute.Add(new SubCommand(@"tracert", string.Format(@"-w 500 {0}", proxy2)));
-            executingTraceroute.Add(new SubCommand(@"bin\nmap\nmap.exe", string.Format(@"-sn --traceroute --script bin\nmap\traceroute-geolocation.nse {0}", proxy1)));
-            executingTraceroute.Add(new SubCommand(@"bin\nmap\nmap.exe", string.Format(@"-sn --traceroute --script bin\nmap\traceroute-geolocation.nse {0}", proxy2)));
+            executingTraceroute.Add(new SubCommand(@"tracert", string.Format(@"-w 500 {0}", proxy2)));          
+            executingTraceroute.Add(new SubCommand(@"bin\nmap\nmap.exe", string.Format(@"-sn --system-dns --traceroute --script bin\nmap\traceroute-geolocation.nse {0}", proxy1)));
+            executingTraceroute.Add(new SubCommand(@"bin\nmap\nmap.exe", string.Format(@"-sn --system-dns --traceroute --script bin\nmap\traceroute-geolocation.nse {0}", proxy2)));
             _setCommands.Add(executingTraceroute);
 
             var executingPing = new List<SubCommand>();

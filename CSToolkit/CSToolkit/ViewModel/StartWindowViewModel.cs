@@ -1,9 +1,8 @@
-﻿using CSToolkit.Tools;
-using System;
-using System.Text.RegularExpressions;
-using System.Windows;
-using CSToolkit.Model;
+﻿using CSToolkit.Model;
+using CSToolkit.Tools;
+using CSToolkit.Validators;
 using CSToolkit.View;
+using System.Windows;
 
 namespace CSToolkit.ViewModel
 {
@@ -13,28 +12,12 @@ namespace CSToolkit.ViewModel
         private string _phoneNumber;
         private string _emailAdress;
         private bool _needToInstallWinPcap = true;
-        private const string NameRegex = @"^[\D]+$";
-        private const string PhoneNumberRegex = @"^[\d]+$";
-        private const double DefaultWindowHeight = 330;
-        private const double DefaultWindowWidth = 625;
-        private double _top;
-        private double _left;
-        private double _lastTop;
-        private double _lastLeft;
-        private double _height;
-        private double _width;
-        private Visibility _windowVisibility;
-        private bool _windowIsMax;
+                                                                                                                                    
+        public event CustomEvent.CustomHandler NameIsValidEvent;
+        public event CustomEvent.CustomHandler SerialNumberIsValidEvent;
 
-        public delegate void CustomHandler(object sender, DataValidationEventArgs isValid);
-                                         
-        public event CustomHandler NameIsValidEvent;
-        public event CustomHandler SerialNumberIsValidEvent;
-
-        public StartWindowViewModel(double left, double top)
+        public StartWindowViewModel(double left, double top) : base(left, top)
         {
-            Left = left;
-            Top = top;
             SetDefaultWindowDimensions();
             BindCommands();
         }
@@ -63,7 +46,7 @@ namespace CSToolkit.ViewModel
                 ConsoleCommandHandler.ExecuteWithoutOutput("WinPcap_4_1_2.exe", "", true);
 
             var viewModel = new SecondWindowViewModel(Left, Top, Width, Height);
-            UserInfo.SetUserInfo(UserName, PhoneNumber, EmailAdress);
+            UserInfo.SetUserInfo(UserName, SerialNumber, EmailAdress);
 
             var view = new SecondWindow { DataContext = viewModel };
             view.Show();
@@ -101,19 +84,17 @@ namespace CSToolkit.ViewModel
             set
             {
                 _userName = value;
-                OnPropertyChanged("UserName");
-               
+                OnPropertyChanged("UserName");               
             }
         }
 
-        public string PhoneNumber
+        public string SerialNumber
         {
             get { return _phoneNumber; }
             set
             {
                _phoneNumber = value;
-               OnPropertyChanged("PhoneNumber");
-               
+               OnPropertyChanged("SerialNumber");                  
             }
         }
 
@@ -135,59 +116,8 @@ namespace CSToolkit.ViewModel
                 _needToInstallWinPcap = value;
                 OnPropertyChanged("NeedToInstallWinPcap");
             }
-        }
-
-        public double Left 
-        { 
-            get { return _left; }
-            set
-            {
-                _left = value;
-                OnPropertyChanged("Left");
-            }
-        }
-
-        public double Top
-        {
-            get { return _top; }
-            set
-            {
-                _top = value;
-                OnPropertyChanged("Top");
-            }
-        }
-
-        public double Width
-        {
-            get { return _width; }
-            set
-            {
-                _width = value;
-                OnPropertyChanged("Width");
-            }
-        }
-
-        public double Height
-        {
-            get { return _height; }
-            set
-            {
-                _height = value;
-                OnPropertyChanged("Height");
-            }
-        }
-
-        public Visibility WindowVisibility
-        {
-            get { return _windowVisibility; }
-            set
-            {
-                _windowVisibility = value;
-                OnPropertyChanged("WindowVisibility");
-            }
-        }
-
-        #endregion
+        }    
+    #endregion
 
     #region DataValidation
 
@@ -195,7 +125,7 @@ namespace CSToolkit.ViewModel
         {
             bool isValid = true;
 
-            if (!NameIsValid())
+            if (!validationRules.UserNameIsValid(UserName))
             {
                 isValid = false;
                 NameIsValidEvent(this, new DataValidationEventArgs(false));
@@ -205,7 +135,7 @@ namespace CSToolkit.ViewModel
                 NameIsValidEvent(this, new DataValidationEventArgs(true));
             }
 
-            if (!PhoneIsValid())
+            if (!validationRules.SerialNumberIsValid(SerialNumber))
             {
                 isValid = false;
                 SerialNumberIsValidEvent(this, new DataValidationEventArgs(false));
@@ -217,17 +147,6 @@ namespace CSToolkit.ViewModel
 
             return isValid;
         }
-
-        private bool NameIsValid()
-        {
-            return !string.IsNullOrEmpty(UserName);
-        }
-
-        private bool PhoneIsValid()
-        {
-            return !string.IsNullOrEmpty(PhoneNumber) && new Regex(PhoneNumberRegex).Match(PhoneNumber).Success;
-        }
-
     #endregion
     }
 }

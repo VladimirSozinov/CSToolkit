@@ -22,13 +22,16 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0" Background="#d1d1d1">
+                
                 <StackPanel Orientation="Horizontal">
-                    <Image Margin="2.5,0,0,0" HorizontalAlignment="Left" Source="../Resources/cws_icon.ico" Width="43" Height="25"></Image>
+                    <Image></Image>
                     <Label Margin="5,0,0,0" FontSize="14" Grid.Column="1">CWS Diagnostic Tool v1.2</Label>
                 </StackPanel>
+                
                 <Button Command="{Binding HideCommand}" Style="{StaticResource HideButtonStyle}"></Button>
                 <Button Command="{Binding ExpandCommand}" Style="{StaticResource ExpandButtonStyle}"></Button>
                 <Button Command="{Binding CloseCommand}" Style="{StaticResource CrossButtonStyle}"></Button>
+                
             </Grid>
 
             <Grid Grid.Row="1">
@@ -49,13 +52,13 @@
                     </Grid.RowDefinitions>
 
                         <Label Grid.Row="0">Customer Name</Label>
-                        <TextBox Name="CustomerNameTextBox" Margin="125,0,0,0" Grid.Row="0" Text="{Binding Path=UserName, Mode=TwoWay}"></TextBox>
+                        <TextBox Name="CustomerNameTextBox" Margin="145,0,35,0" Grid.Row="0" Text="{Binding Path=UserName, Mode=TwoWay}"></TextBox>
                    
                         <Label Grid.Row="1">SR Number</Label>
-                        <TextBox Name="SerialNumberTextBox" Margin="125,0,0,0" Grid.Row="1" Text="{Binding Path=PhoneNumber, Mode=TwoWay}"></TextBox>
+                        <TextBox Name="SerialNumberTextBox" Margin="145,0,35,0" Grid.Row="1" Text="{Binding Path=SerialNumber, Mode=TwoWay}"></TextBox>
                     
                         <Label Grid.Row="2">CEC ID(Optional)</Label>
-                        <TextBox Grid.Row="2" Margin="125,0,0,0" Text="{Binding Path=EmailAdress, Mode=TwoWay}"></TextBox>
+                        <TextBox Grid.Row="2" Margin="145,0,35,0" Text="{Binding Path=EmailAdress, Mode=TwoWay}"></TextBox>
                                        
                     <Label Grid.Row="3" Width="210">Install WinPcap (required)</Label>
                     <CheckBox Grid.Row="3" Name="InstallWinPcapCheckBox" IsChecked="{Binding NeedToInstallWinPcap}" HorizontalAlignment="Left" Margin="255,0,0,0" VerticalAlignment="Center"></CheckBox>

@@ -191,3 +191,8 @@ pre {
 
     font-size: 12px;
 }
+
+pre.SpecialBold {
+    font-weight: bold;
+}
+

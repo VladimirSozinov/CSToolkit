@@ -100,14 +100,14 @@
     <Compile Include="Model\SubCommand.cs" />
     <Compile Include="Model\UserInfo.cs" />
     <Compile Include="Model\Worker.cs" />
-    <Compile Include="Tests\MainTestFixture.cs" />
     <Compile Include="Tools\ConsoleCommandHandler.cs" />
+    <Compile Include="Tools\DialogManager.cs" />
+    <Compile Include="Tools\ExternalAppsManager.cs" />
     <Compile Include="Tools\HtmlGenerator.cs" />
     <Compile Include="Tools\ZipGenerator.cs" />
-    <Compile Include="Validators\SecondWindowRules.cs" />
+    <Compile Include="Validators\GeneralValidationRules.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="ViewModel\CustomEventArgs.cs" />
-    <Compile Include="ViewModel\IDataErrorInfo.cs" />
+    <Compile Include="ViewModel\CustomEvent.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\ResultWindowViewModel.cs" />
     <Compile Include="ViewModel\SecondWindowViewModel.cs" />
@@ -166,10 +166,13 @@
     <Resource Include="Resources\HideReleased.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\cws_icon.ico" />
+    <Resource Include="Resources\cws_icon_old.ico" />
     <Resource Include="Resources\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cws_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

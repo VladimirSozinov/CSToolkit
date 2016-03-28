@@ -1,54 +1,23 @@
 ﻿using CSToolkit.Model;
 using CSToolkit.Validators;
+using CSToolkit.View;
 using System.Windows;
 using System.Windows.Media;
-using CSToolkit.View;
 
 namespace CSToolkit.ViewModel
 {
     public class SecondWindowViewModel : BaseViewModel
-    {
-        public string Proxy1 { get; set; }
-        public string Proxy2 { get; set; }
-        public string PingHostText { get; set; }
+    {                                                                                       
+        public event CustomEvent.CustomHandler Proxy1IsValidEvent;
+        public event CustomEvent.CustomHandler Proxy2IsValidEvent;
+        public event CustomEvent.CustomHandler PingHostIsValidEvent;
 
-        public Brush Proxy1BorderBrush { get; set; }
-        public Brush Proxy2BorderBrush { get; set; }
-        public Brush PingHostBorderBrush { get; set; }
-
-        public SecondWindowRules rules;
-        
-        private double _top;
-        private double _left;
-        private double _lastTop;
-        private double _lastLeft;
-        private double _height;
-        private double _width;
-        private Visibility _windowVisibility;
-        private bool _windowIsMax;
-        private const double DefaultWindowHeight = 330;
-        private const double DefaultWindowWidth = 625;
-
-
-        public delegate void CustomHandler(object sender, DataValidationEventArgs isValid);
-
-        public event CustomHandler Proxy1IsValidEvent;
-        public event CustomHandler Proxy2IsValidEvent;
-        public event CustomHandler PingHostIsValidEvent;
-
-        public SecondWindowViewModel(double left, double top, double width, double height)
+        public SecondWindowViewModel(double left, double top, double width, double height) : base(left, top)
         {
-            Left = left;
-            Top = top;
             Width = width;
             Height = height;
-            BrushConverter bc = new BrushConverter();
             PingHostText = "www.google.com";
             BindCommands();
-            Proxy1BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
-            Proxy2BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
-            PingHostBorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
-            rules = new SecondWindowRules();
         }
 
         private void BindCommands()
@@ -76,8 +45,7 @@ namespace CSToolkit.ViewModel
             }
             else
             {
-                Height = DefaultWindowHeight;
-                Width = DefaultWindowWidth;
+                SetDefaultWindowDimensions();
                 Left = _lastLeft;
                 Top = _lastTop;
                 _windowIsMax = false;
@@ -101,55 +69,9 @@ namespace CSToolkit.ViewModel
 
     #region Public properties
 
-        public double Left
-        {
-            get { return _left; }
-            set
-            {
-                _left = value;
-                OnPropertyChanged("Left");
-            }
-        }
-
-        public double Top
-        {
-            get { return _top; }
-            set
-            {
-                _top = value;
-                OnPropertyChanged("Top");
-            }
-        }
-
-        public double Width
-        {
-            get { return _width; }
-            set
-            {
-                _width = value;
-                OnPropertyChanged("Width");
-            }
-        }
-
-        public double Height
-        {
-            get { return _height; }
-            set
-            {
-                _height = value;
-                OnPropertyChanged("Height");
-            }
-        }
-
-        public Visibility WindowVisibility
-        {
-            get { return _windowVisibility; }
-            set
-            {
-                _windowVisibility = value;
-                OnPropertyChanged("WindowVisibility");
-            }
-        }
+        public string Proxy1 { get; set; }
+        public string Proxy2 { get; set; }
+        public string PingHostText { get; set; }
 
     #endregion
 
@@ -159,7 +81,7 @@ namespace CSToolkit.ViewModel
         {
             bool isValid = true;
 
-            if (!rules.IsProxyValid(Proxy1))
+            if (!validationRules.IsProxyValid(Proxy1))
             {
                 isValid = false;
                 Proxy1IsValidEvent(this, new DataValidationEventArgs(false));
@@ -170,7 +92,7 @@ namespace CSToolkit.ViewModel
                 Proxy1IsValidEvent(this, new DataValidationEventArgs(true));
             }
 
-            if (!rules.IsProxyValid(Proxy2))
+            if (!validationRules.IsProxyValid(Proxy2))
             {
                 isValid = false;
                 Proxy2IsValidEvent(this, new DataValidationEventArgs(false));
@@ -187,8 +109,8 @@ namespace CSToolkit.ViewModel
             }
 
             else
-            {  
-                if (!rules.IsPingHostValid(PingHostText))
+            {
+                if (!validationRules.IsPingHostValid(PingHostText))
                 {
                     isValid = false;
                     PingHostIsValidEvent(this, new DataValidationEventArgs(false));

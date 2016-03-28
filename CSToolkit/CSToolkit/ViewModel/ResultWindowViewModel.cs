@@ -1,59 +1,44 @@
 ﻿using CSToolkit.Model;
 using CSToolkit.Tools;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Threading;
+using System.Linq;
 using System.Windows;
-using System.Windows.Threading;
 using System.Windows.Input;
-using Microsoft.Win32;
-using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace CSToolkit.ViewModel
 {
     public class ResultWindowViewModel : BaseViewModel
-    {
-        private string _proxy1;
-        private string _proxy2;
-        private string _pingHost;
-        public string WindowHeaderText { get; set; }
-
-        private double _left;
-        private double _top;
-        private double _lastLeft;
-        private double _lastTop;
-        private double _height;
-        private double _width;
-        private const double DefaultWindowHeight = 400;
-        private const double DefaultWindowWidth = 750;
-        private Visibility _windowVisibility;
+    {                                               
         private ObservableCollection<Operation> _operations;
         private System.Timers.Timer _aTimer;
         private List<OperationReport> _operationReports;
-        private bool _windowIsMax;
+        private string _windowHeaderText;
         private string _resultText;
-        private string _defaultDirectory;
         private string _reportName;
         private string _titleText;
         private string _linkButtonText;
-        private BackgroundWorker worker;
+        private string _proxy1;
+        private string _proxy2;
+        private string _pingHost;
         private double _halfOfWindowWidth;
+        private BackgroundWorker worker;
 
         public event Action HtmlHasGenerated;
         public event Action ZiplHasGenerated;
-        public delegate void CustomHandler(object sender, PropertyChangeEventArgs data);
                                          
         public ICommand LinkCommand { get; set; }
 
-        public ResultWindowViewModel(double left, double top, string proxy1, string proxy2, string pingHost)
+        public ResultWindowViewModel(double left, double top, string proxy1, string proxy2, string pingHost) : base(left, top)
         {
+            DefaultWindowHeight = 400; 
+            DefaultWindowWidth = 750;
             Proxy1 = proxy1;
             Proxy2 = proxy2;
             PingHost = pingHost;
-            SetDefaultConstraints(left ,top);
+            SetDefaultWindowDimensions();
             SetDefaultFields();
             BindCommands();
             StartProcessing();
@@ -66,23 +51,7 @@ namespace CSToolkit.ViewModel
             CloseCommand = new RelayCommand(arg => CloseButtonClicked());
             ContinueCommand = new RelayCommand(arg => ContinueButtonClicked());
             ExitCommand = new RelayCommand(arg => ExitButtonClicked());
-            LinkCommand = new RelayCommand(arg => LinkButtonCliced());
-        }
-
-        private void SetDefaultConstraints()
-        {
-            Height = DefaultWindowHeight;
-            Width = DefaultWindowWidth;
-            Left = _lastLeft;
-            Top = _lastTop;
-        }
-
-        private void SetDefaultConstraints(double left, double top)
-        {
-            Height = DefaultWindowHeight;
-            Width = DefaultWindowWidth;
-            Left = left;
-            Top = top;
+            LinkCommand = new RelayCommand(arg => LinkButtonClicked());
         }
 
         private void SetDefaultFields()
@@ -163,12 +132,6 @@ namespace CSToolkit.ViewModel
                 }
             });
         } 
-        
-        private string GetCurrentDate()
-        {
-            var date = DateTime.Now;
-            return String.Format(@"{0}-{1}GMT", date.ToString("ddMMMMyyyy"), date.ToString("HHmm"));
-        }
 
         private void GenerateHtmlReport()
         {
@@ -183,35 +146,24 @@ namespace CSToolkit.ViewModel
 
         private void AddReportForUserInfo()
         {
-            UserInfo.CurrentDate = GetCurrentDate();//UserInfo CurrentDate setting
             var listReports = new List<Report>();
             listReports.Add(new Report("user data collecting", UserInfo.GetInfoForReport()));//Adding report for UserInfo
             _operationReports[0] = new OperationReport(_operationReports[0].Operation, listReports);
         }
                 
-        #region Public properties
-
-        public double Left
+    #region Public properties
+                                  
+        public string WindowHeaderText
         {
-            get { return _left; }
+            get { return _windowHeaderText; }
             set
             {
-                _left = value;
-                OnPropertyChanged("Left");
+                _windowHeaderText = value;
+                OnPropertyChanged("WindowHeaderText");
             }
         }
-
-        public double Top
-        {
-            get { return _top; }
-            set
-            {
-                _top = value;
-                OnPropertyChanged("Top");
-            }
-        }
-
-        public double Width
+        
+        public override double Width
         {
             get { return _width; }
             set
@@ -220,27 +172,7 @@ namespace CSToolkit.ViewModel
                 HalfOfWindowWidth = _width / 2 - 8;
                 OnPropertyChanged("Width");
             }
-        }
-
-        public double Height
-        {
-            get { return _height; }
-            set
-            {
-                _height = value;
-                OnPropertyChanged("Height");
-            }
-        }
-
-        public Visibility WindowVisibility
-        {
-            get { return _windowVisibility; }
-            set
-            {
-                _windowVisibility = value;
-                OnPropertyChanged("WindowVisibility");
-            }
-        }
+        }          
 
         public string Proxy1
         {
@@ -354,57 +286,29 @@ namespace CSToolkit.ViewModel
                 Top = workingArea.Bottom - Height;
                 _windowIsMax = true;
             }
+
             else
             {
-                SetDefaultConstraints();
+                SetDefaultWindowDimensions();
+                Left = _lastLeft;
+                Top = _lastTop;
                 _windowIsMax = false;
             }
         }
         
         protected override void ContinueButtonClicked()
         {
-            _defaultDirectory = GetDirectoryForSavingReports();            
+            var _defaultDirectory = new DialogManager().GetDirectoryForSavingReportsDialog();            
             ZipGenerator.CreateZipArchive(_operationReports, _defaultDirectory);
+
             if (ZiplHasGenerated != null)
                 ZiplHasGenerated();
         }
 
-        private void LinkButtonCliced()
+        private void LinkButtonClicked()
         {
-            ConsoleCommandHandler.ExecuteWithoutOutput(GetDefaultBrowserPath(), string.Format(@"{0}", _reportName), false);
-        }
-
-
-        private string GetDirectoryForSavingReports()
-        {
-            var folderSelectorDialog = new CommonOpenFileDialog();
-            folderSelectorDialog.EnsureReadOnly = true;
-            folderSelectorDialog.IsFolderPicker = true;
-            folderSelectorDialog.AllowNonFileSystemItems = false;
-            folderSelectorDialog.Multiselect = false;
-            folderSelectorDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            folderSelectorDialog.Title = "Choose folder for saving reports";
-            folderSelectorDialog.ShowDialog();
-
-            string targetDirectory = Environment.SpecialFolder.Desktop.ToString();
-
-            try
-            {
-                targetDirectory = folderSelectorDialog.FileName;
-            }
-            catch { }
-
-            return targetDirectory;
-        }
-
-        private string GetDefaultBrowserPath()
-        {
-            string key = @"HTTP\shell\open\command";
-
-            using (RegistryKey registrykey = Registry.ClassesRoot.OpenSubKey(key, false))
-            {
-                return ((string)registrykey.GetValue(null, null)).Split('"')[1];
-            }
+            var pathToDefaultBrowser = new ExternalAppsManager().GetDefaultBrowserPath();
+            ConsoleCommandHandler.ExecuteWithoutOutput(pathToDefaultBrowser, string.Format(@"{0}", _reportName), false);
         }
     }
 }

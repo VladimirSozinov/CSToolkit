@@ -1,6 +1,5 @@
 ﻿using CSToolkit.ViewModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -16,7 +15,7 @@ namespace CSToolkit.View
 
         private void StartWindowDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            var viewModel = DataContext as StartWindowViewModel;
+            var viewModel = DataContext as StartWindowViewModel;  
 
             if (viewModel == null)
                 return;
@@ -30,8 +29,7 @@ namespace CSToolkit.View
         {
             if (e.IsValid)
             {
-                BrushConverter bc = new BrushConverter();
-                CustomerNameTextBox.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                CustomerNameTextBox.BorderBrush = (Brush)new BrushConverter().ConvertFrom("#FFABADB3");
                 CustomerNameTextBox.ToolTip = null;
             }
             else
@@ -45,8 +43,7 @@ namespace CSToolkit.View
         {
             if (e.IsValid)
             {
-                BrushConverter bc = new BrushConverter();
-                SerialNumberTextBox.BorderBrush = (Brush)bc.ConvertFrom("#FFABADB3");
+                SerialNumberTextBox.BorderBrush = (Brush)new BrushConverter().ConvertFrom("#FFABADB3");
                 SerialNumberTextBox.ToolTip = null;
             }
             else
