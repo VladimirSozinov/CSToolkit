@@ -37,7 +37,7 @@
 
             <Border Grid.Row="2" BorderThickness="1" BorderBrush="Gray">
                 <Grid>
-                    <ListView Name="CommandList" ItemsSource="{Binding Operations}">
+                    <ListView Name="CommandList" ItemsSource="{Binding Operations}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                         <ListView.Resources>
                             <Style TargetType="{x:Type ListViewItem}">
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
