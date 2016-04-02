@@ -25,6 +25,8 @@ namespace CSToolkit.ViewModel
         private string _pingHost;
         private double _halfOfWindowWidth;
         private BackgroundWorker worker;
+        private object _syncObject = new Object();  
+        private int _counter;
 
         public event Action HtmlHasGenerated;
         public event Action ZiplHasGenerated;
@@ -112,9 +114,13 @@ namespace CSToolkit.ViewModel
             }
 
             var operationReport = new OperationReport(operation.TxtName, reports);
-            _operationReports.Add(operationReport);
-            operation.CurrentState = Operation.States.Finished;
 
+            lock(_syncObject)
+            {          
+                _operationReports.Add(operationReport);
+            }
+
+            operation.CurrentState = Operation.States.Finished;  
             EvaluateFinishedProcesses();
         }
 
@@ -137,7 +143,7 @@ namespace CSToolkit.ViewModel
         {
             AddReportForUserInfo();        
             _reportName = HtmlGenerator.WriteToHtml(_operationReports);
-            ResultText += "- See results in HTML format at ";
+            ResultText += " - See results in HTML format at ";
             LinkButtonText = "http://server1.com/" + _reportName;
 
             if (HtmlHasGenerated != null)
@@ -295,14 +301,14 @@ namespace CSToolkit.ViewModel
                 _windowIsMax = false;
             }
         }
-        
+
         protected override void ContinueButtonClicked()
         {
             var _defaultDirectory = new DialogManager().GetDirectoryForSavingReportsDialog();            
             ZipGenerator.CreateZipArchive(_operationReports, _defaultDirectory, _reportName);
 
-            if (ZiplHasGenerated != null)
-                ZiplHasGenerated();
+            if (ZiplHasGenerated != null && _counter++ == 2)
+                ZiplHasGenerated();   
         }
 
         private void LinkButtonClicked()

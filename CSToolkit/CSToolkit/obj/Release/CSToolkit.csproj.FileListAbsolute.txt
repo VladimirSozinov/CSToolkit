@@ -782,3 +782,4 @@ B:\Repos\CSToolkit\CSToolkit\bin\Release\scripts\nmap\licenses\OpenSSL.txt
 B:\Repos\CSToolkit\CSToolkit\bin\Release\scripts\nmap\3rd-party-licenses.txt
 B:\Repos\CSToolkit\CSToolkit\bin\Release\scripts\nmap\nselib\data\pixel.gif
 B:\Repos\CSToolkit\CSToolkit\bin\Release\scripts\nmap\nmap.xsl
+B:\Repos\CSToolkit\CSToolkit\obj\Release\CSToolkit.csprojResolveAssemblyReference.cache

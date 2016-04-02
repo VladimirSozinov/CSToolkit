@@ -24,10 +24,10 @@ namespace CSToolkit.Model
             _setCommands.Add(collectingWhoami);
 
             var checkingForOpenPort = new List<SubCommand>();
-            checkingForOpenPort.Add( new SubCommand(@"bin\nc\nc.exe", string.Format(@"-v -z -w5 {0} 8080", proxy1)));
-            checkingForOpenPort.Add( new SubCommand(@"bin\nc\nc.exe", string.Format(@"-v -z -w5 {0} 8080", proxy2)));
-            checkingForOpenPort.Add( new SubCommand(@"bin\nc\nc64.exe", string.Format(@"-v -z -w5 {0} 8080", proxy1)));
-            checkingForOpenPort.Add( new SubCommand(@"bin\nc\nc64.exe", string.Format(@"-v -z -w5 {0} 8080", proxy2)));
+            checkingForOpenPort.Add(new SubCommand(@"bin\nc\nc.exe", string.Format(@"-v -z -w5 {0} 8080", proxy1)));
+            checkingForOpenPort.Add(new SubCommand(@"bin\nc\nc.exe", string.Format(@"-v -z -w5 {0} 8080", proxy2)));
+            checkingForOpenPort.Add(new SubCommand(@"bin\nc\nc64.exe", string.Format(@"-v -z -w5 {0} 8080", proxy1)));
+            checkingForOpenPort.Add(new SubCommand(@"bin\nc\nc64.exe", string.Format(@"-v -z -w5 {0} 8080", proxy2)));
             _setCommands.Add(checkingForOpenPort);
 
             var collectingSystemInfo = new List<SubCommand>();

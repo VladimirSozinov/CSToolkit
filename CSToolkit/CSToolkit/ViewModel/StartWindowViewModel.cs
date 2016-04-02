@@ -2,6 +2,8 @@
 using CSToolkit.Tools;
 using CSToolkit.Validators;
 using CSToolkit.View;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 
 namespace CSToolkit.ViewModel
@@ -20,12 +22,6 @@ namespace CSToolkit.ViewModel
         {
             SetDefaultWindowDimensions();
             BindCommands();
-        }
-
-        private void SetDefaultWindowDimensions()
-        {
-            Height = DefaultWindowHeight;
-            Width = DefaultWindowWidth;
         }
 
         private void BindCommands()
