@@ -166,7 +166,6 @@
     <Resource Include="Resources\HideReleased.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\cws_icon_old.ico" />
     <Resource Include="Resources\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

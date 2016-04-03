@@ -121,7 +121,7 @@ namespace CSToolkit.ViewModel
         {
             bool isValid = true;
 
-            if (!validationRules.UserNameIsValid(UserName))
+            if (!validationRules.IsUserNameValid(UserName))
             {
                 isValid = false;
                 NameIsValidEvent(this, new DataValidationEventArgs(false));
@@ -131,7 +131,7 @@ namespace CSToolkit.ViewModel
                 NameIsValidEvent(this, new DataValidationEventArgs(true));
             }
 
-            if (!validationRules.SerialNumberIsValid(SerialNumber))
+            if (!validationRules.IsSerialNumberValid(SerialNumber))
             {
                 isValid = false;
                 SerialNumberIsValidEvent(this, new DataValidationEventArgs(false));
