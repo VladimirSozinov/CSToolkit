@@ -33,7 +33,7 @@ namespace CSToolkit.Tools
                          myStyle = reader.ReadToEnd();
                      }
                 }
-                catch { }
+                catch (SystemException ex) { }
 
                 stringWriter.WriteLine(myStyle);
                 stringWriter.WriteLine("</style>");  
@@ -82,12 +82,14 @@ namespace CSToolkit.Tools
                     outfile.Write(stringWriter);
                 }
 
-                WebClient wc = new WebClient();
                 try
                 {
-                    wc.UploadFile(@"http://73.15.216.146/data/", string.Format("Report{0}.html", suffix));
+                    using (WebClient wc = new WebClient())
+                    {
+                        wc.UploadFile(@"http://73.15.216.146/data", string.Format("Report{0}.html", suffix));
+                    }
                 }
-                catch { }
+                catch (SystemException ex) { }
             }
             catch (SystemException ex){ }
 

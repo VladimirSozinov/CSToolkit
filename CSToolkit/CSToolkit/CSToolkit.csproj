@@ -99,7 +99,6 @@
     <Compile Include="Model\Report.cs" />
     <Compile Include="Model\SubCommand.cs" />
     <Compile Include="Model\UserInfo.cs" />
-    <Compile Include="Model\Worker.cs" />
     <Compile Include="Tools\ConsoleCommandHandler.cs" />
     <Compile Include="Tools\DialogManager.cs" />
     <Compile Include="Tools\ExternalAppsManager.cs" />
@@ -156,9 +155,6 @@
     <Resource Include="Resources\CrossPressed.png" />
     <Resource Include="Resources\ExpandPressed.png" />
     <Resource Include="Resources\HidePressed.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\cs.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\CrossReleased.png" />

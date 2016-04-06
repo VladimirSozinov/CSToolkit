@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CSToolkit.Model
 {
@@ -10,7 +6,7 @@ namespace CSToolkit.Model
     {
         private string _example = "http://www.example.com";
         private string _whoami = "http://whoami.scansafe.net/";
-        List<List<SubCommand>> _setCommands;
+        private List<List<SubCommand>> _setCommands;
 
         public CommandsCollcetion(string proxy1, string proxy2, string host)
         {
@@ -93,10 +89,7 @@ namespace CSToolkit.Model
 
         public List<List<SubCommand>> GetCommands 
         { 
-            get
-                {
-                    return _setCommands;
-                }
+            get { return _setCommands; }
         }
     }
 }

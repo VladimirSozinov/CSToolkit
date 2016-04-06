@@ -53,17 +53,21 @@
         </Setter>
     </Style>
 
-    <Style x:Key="CrossButtonStyle" TargetType="{x:Type Button}">
+    <!-- Styles for common buttons in the top right corner of the window - Hide, Expand, Close-->    
+    
+    <Style x:Key="CommonButtonsStyle" TargetType="{x:Type Button}">
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="Width" Value="60"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="FontFamily" Value="Arial"/>
+    </Style>
+    
+    <Style x:Key="CrossButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource CommonButtonsStyle}">
         <Setter Property="Background">
             <Setter.Value>
                 <ImageBrush ImageSource="../Resources/CrossReleased.png"/>
             </Setter.Value>
         </Setter>
-
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -87,11 +91,7 @@
     </Style>
 
 
-    <Style x:Key="ExpandButtonStyle" TargetType="{x:Type Button}">
-        <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Setter Property="Width" Value="60"/>
-        <Setter Property="Height" Value="30"/>
-        <Setter Property="FontFamily" Value="Arial"/>
+    <Style x:Key="ExpandButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource CommonButtonsStyle}">
         <Setter Property="Margin" Value="0,0,60,0"/>
         <Setter Property="Background">
             <Setter.Value>
@@ -120,11 +120,7 @@
     </Style>
 
 
-    <Style x:Key="HideButtonStyle" TargetType="{x:Type Button}">
-        <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Setter Property="Width" Value="60"/>
-        <Setter Property="Height" Value="30"/>
-        <Setter Property="FontFamily" Value="Arial"/>
+    <Style x:Key="HideButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource CommonButtonsStyle}">
         <Setter Property="Margin" Value="0,0,120,0"/>
         <Setter Property="Background">
             <Setter.Value>
