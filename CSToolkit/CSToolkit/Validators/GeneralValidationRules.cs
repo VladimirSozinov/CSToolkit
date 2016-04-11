@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace CSToolkit.Validators
 {
     public class GeneralValidationRules
     {
         private const string NameRegex = @"^[\D]+$";
-        private const string SrNumberRegex = @"^[\d]+$";
+        private const string SerialNumberRegex = @"^[\d]+$";
 
         public bool IsUserNameValid(string input)
         {
@@ -19,7 +14,7 @@ namespace CSToolkit.Validators
 
         public bool IsSerialNumberValid(string input)
         {
-            return !string.IsNullOrEmpty(input) && new Regex(SrNumberRegex).Match(input).Success;
+            return !string.IsNullOrEmpty(input) && new Regex(SerialNumberRegex).Match(input).Success;
         }
 
         public bool IsProxyValid(string input)

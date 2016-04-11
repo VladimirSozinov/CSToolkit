@@ -21,8 +21,7 @@ namespace CSToolkit.Tools
                         {
                             result += e.FullCommand + "\n" + e.TextReport + "\n";
                         }  
-                    }
-
+                    }  
                     else
                     {
                         result += operations[i].Report[0].TextReport + "\n";
@@ -38,13 +37,20 @@ namespace CSToolkit.Tools
                       
             foreach (var operation in operations)
             {
-                ConsoleCommandHandler.ExecuteWithoutOutput(@"bin\zip\zip.exe", string.Format(@"{0}/Report-{1}.zip {2}.txt", directory, UserInfo.CurrentDate, operation.Operation), false);
+                ConsoleCommandHandler.ExecuteWithoutOutput(
+                        @"bin\zip\zip.exe", 
+                        string.Format(@"{0}/Report-{1}.zip {2}.txt", directory, UserInfo.CurrentDate, operation.Operation),
+                        false);
+
                 File.Delete(string.Format("{0}.txt", operation.Operation));
             }
 
             try
             {
-                ConsoleCommandHandler.ExecuteWithoutOutput(@"bin\zip\zip.exe", string.Format(@"{0}/Report-{1}.zip {2}", directory, UserInfo.CurrentDate, htmlName), false);
+                ConsoleCommandHandler.ExecuteWithoutOutput(
+                       @"bin\zip\zip.exe", 
+                       string.Format(@"{0}/Report-{1}.zip {2}", directory, UserInfo.CurrentDate, htmlName), 
+                       false);
             }
             catch (SystemException ex) { }
         }

@@ -15,10 +15,9 @@ namespace CSToolkit.ViewModel
 
         public bool CanExecute(object parameter)
         {
-            if (CanExecuteDelegate != null)
-            {
+            if (CanExecuteDelegate != null)  
                 return CanExecuteDelegate(parameter);
-            }
+            
             return true;
         }
 
@@ -31,9 +30,7 @@ namespace CSToolkit.ViewModel
         public void Execute(object parameter)
         {
             if (ExecuteDelegate != null)
-            {
                 ExecuteDelegate(parameter);
-            }
         }
     }
 }

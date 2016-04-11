@@ -5,8 +5,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Timers;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+
 
 namespace CSToolkit.ViewModel
 {
@@ -35,8 +38,8 @@ namespace CSToolkit.ViewModel
 
         public ResultWindowViewModel(double left, double top, string proxy1, string proxy2, string pingHost) : base(left, top)
         {
-            DefaultWindowHeight = 400; 
-            DefaultWindowWidth = 750;
+            DefaultWindowHeight = 440; 
+            DefaultWindowWidth = 825;
             Proxy1 = proxy1;
             Proxy2 = proxy2;
             PingHost = pingHost;
@@ -49,7 +52,6 @@ namespace CSToolkit.ViewModel
         private void BindCommands()
         {
             HideCommand = new RelayCommand(arg => HideButtonClicked());
-            ExpandCommand = new RelayCommand(arg => ExpandButtonClicked());
             CloseCommand = new RelayCommand(arg => CloseButtonClicked());
             ContinueCommand = new RelayCommand(arg => ContinueButtonClicked());
             ExitCommand = new RelayCommand(arg => ExitButtonClicked());
@@ -82,11 +84,11 @@ namespace CSToolkit.ViewModel
         {
             for (int i = 0; i < _operations.Count; i++)
             {
-                if (_operations[i].CurrentState == Operation.States.Waiting)
+                if (_operations[i].CurrentState == Operation.AdaptedStates[Operation.States.Waiting])
                 {
                     App.Current.Dispatcher.Invoke((Action)delegate
                     {
-                        _operations[i].CurrentState = Operation.States.InProgress;
+                        _operations[i].CurrentState = Operation.AdaptedStates[Operation.States.InProgress];                           
                     });
                 }
 
@@ -120,13 +122,13 @@ namespace CSToolkit.ViewModel
                 _operationReports.Add(operationReport);
             }
 
-            operation.CurrentState = Operation.States.Finished;  
+            operation.CurrentState = Operation.AdaptedStates[Operation.States.Finished];  
             EvaluateFinishedProcesses();
         }
 
         private void EvaluateFinishedProcesses()
         {
-            int count = _operations.Count(operation => operation.CurrentState == Operation.States.Finished);
+            int count = _operations.Count(operation => operation.CurrentState == Operation.AdaptedStates[Operation.States.Finished]);
 
             App.Current.Dispatcher.Invoke((Action)delegate
             {
@@ -278,33 +280,9 @@ namespace CSToolkit.ViewModel
         
         #endregion
 
-        protected override void ExpandButtonClicked()
-        {
-            var workingArea = SystemParameters.WorkArea;
-
-            if (_windowIsMax == false)
-            {
-                Width = workingArea.Width;
-                Height = workingArea.Height;
-                _lastLeft = Left;
-                _lastTop = Top;
-                Left = workingArea.Right - Width;
-                Top = workingArea.Bottom - Height;
-                _windowIsMax = true;
-            }
-
-            else
-            {
-                SetDefaultWindowDimensions();
-                Left = _lastLeft;
-                Top = _lastTop;
-                _windowIsMax = false;
-            }
-        }
-
         protected override void ContinueButtonClicked()
         {
-            var _defaultDirectory = new DialogManager().GetDirectoryForSavingReportsDialog();            
+            var _defaultDirectory = DialogManager.GetDirectoryForSavingReportsDialog();            
             ZipGenerator.CreateZipArchive(_operationReports, _defaultDirectory, _reportName);
 
             if (ZiplHasGenerated != null && _counter++ == 2)
@@ -313,8 +291,8 @@ namespace CSToolkit.ViewModel
 
         private void LinkButtonClicked()
         {
-            var pathToDefaultBrowser = new ExternalAppsManager().GetDefaultBrowserPath();
-            ConsoleCommandHandler.ExecuteWithoutOutput(pathToDefaultBrowser, string.Format(@"{0}", _reportName), false);
+            var defaultBrowserPath = ExternalAppsManager.GetDefaultBrowserPath();
+            ConsoleCommandHandler.ExecuteWithoutOutput(defaultBrowserPath, string.Format(@"{0}", _reportName), false);
         }
     }
 }

@@ -9,7 +9,6 @@ namespace CSToolkit.ViewModel
     public class BaseViewModel : INotifyPropertyChanged
     {
         public ICommand HideCommand { get; set; }
-        public ICommand ExpandCommand { get; set; }
         public ICommand CloseCommand { get; set; }
         public ICommand ContinueCommand { get; set; }
         public ICommand ExitCommand { get; set; }
@@ -17,8 +16,8 @@ namespace CSToolkit.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         public event Action HideButtonClickedEvent;
 
-        protected double DefaultWindowHeight = 330;
-        protected double DefaultWindowWidth = 625;
+        protected double DefaultWindowHeight = 500;
+        protected double DefaultWindowWidth = 825;
         protected GeneralValidationRules validationRules;               
         protected double _top;
         protected double _left;
@@ -39,10 +38,6 @@ namespace CSToolkit.ViewModel
         protected virtual void HideButtonClicked()
         {
             HideButtonClickedEvent();
-        }
-
-        protected virtual void ExpandButtonClicked()
-        {
         }
 
         protected virtual void CloseButtonClicked()

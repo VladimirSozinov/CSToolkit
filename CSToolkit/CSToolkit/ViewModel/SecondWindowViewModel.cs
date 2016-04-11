@@ -22,34 +22,10 @@ namespace CSToolkit.ViewModel
 
         private void BindCommands()
         {
-            ExpandCommand = new RelayCommand(arg => ExpandButtonClicked());
             CloseCommand = new RelayCommand(arg => CloseButtonClicked());
             ContinueCommand = new RelayCommand(arg => ContinueButtonClicked());
             ExitCommand = new RelayCommand(arg => ExitButtonClicked());
             HideCommand = new RelayCommand(arg => HideButtonClicked());
-        }
-
-        protected override void ExpandButtonClicked()
-        {
-            var workingArea = SystemParameters.WorkArea;
-
-            if (_windowIsMax == false)
-            {
-                Width = workingArea.Width;
-                Height = workingArea.Height;
-                _lastLeft = Left;
-                _lastTop = Top;
-                Top = workingArea.Bottom - Height;
-                Left = workingArea.Right - Width;
-                _windowIsMax = true;
-            }
-            else
-            {
-                SetDefaultWindowDimensions();
-                Left = _lastLeft;
-                Top = _lastTop;
-                _windowIsMax = false;
-            }
         }
 
         protected override void ContinueButtonClicked()
@@ -58,7 +34,7 @@ namespace CSToolkit.ViewModel
                 return;
 
             if (string.IsNullOrEmpty(PingHostText))
-                PingHostText = "www.google.com";//todo
+                PingHostText = "www.google.com";
 
             var operations = new Operation().GetOperations(Proxy1, Proxy2, PingHostText);
             var viewModel = new ResultWindowViewModel(Left, Top, Proxy1, Proxy2, PingHostText) { Operations = operations };
@@ -84,44 +60,48 @@ namespace CSToolkit.ViewModel
             if (!validationRules.IsProxyValid(Proxy1))
             {
                 isValid = false;
-                Proxy1IsValidEvent(this, new DataValidationEventArgs(false));
-            }
 
+                if (Proxy1IsValidEvent != null)
+                    Proxy1IsValidEvent(this, new DataValidationEventArgs(false));
+            }  
             else
             {
-                Proxy1IsValidEvent(this, new DataValidationEventArgs(true));
+                if (Proxy1IsValidEvent != null)
+                    Proxy1IsValidEvent(this, new DataValidationEventArgs(true));
             }
 
             if (!validationRules.IsProxyValid(Proxy2))
             {
                 isValid = false;
-                Proxy2IsValidEvent(this, new DataValidationEventArgs(false));
-            }
 
+                if (Proxy2IsValidEvent != null)
+                    Proxy2IsValidEvent(this, new DataValidationEventArgs(false));
+            }   
             else
             {
-                Proxy2IsValidEvent(this, new DataValidationEventArgs(true));
+                if (Proxy2IsValidEvent != null)
+                    Proxy2IsValidEvent(this, new DataValidationEventArgs(true));
             }
 
             if (string.IsNullOrEmpty(PingHostText))
             {
                 PingHostText = "www.google.com";
-            }
-
+            } 
             else
             {
                 if (!validationRules.IsPingHostValid(PingHostText))
                 {
                     isValid = false;
-                    PingHostIsValidEvent(this, new DataValidationEventArgs(false));
-                }
 
+                    if (PingHostIsValidEvent != null)
+                        PingHostIsValidEvent(this, new DataValidationEventArgs(false));
+                }       
                 else
                 {
-                    PingHostIsValidEvent(this, new DataValidationEventArgs(true));
+                    if (PingHostIsValidEvent != null)
+                        PingHostIsValidEvent(this, new DataValidationEventArgs(true));
                 }
-            }
-                                      
+            }                                            
             return isValid;
         }  
         #endregion

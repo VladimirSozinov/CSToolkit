@@ -1,9 +1,7 @@
 ﻿using CSToolkit.Model;
 using CSToolkit.Tools;
-using CSToolkit.Validators;
 using CSToolkit.View;
-using System.IO;
-using System.Reflection;
+using System;
 using System.Windows;
 
 namespace CSToolkit.ViewModel
@@ -26,7 +24,6 @@ namespace CSToolkit.ViewModel
 
         private void BindCommands()
         {
-            ExpandCommand = new RelayCommand(arg => ExpandButtonClicked());
             CloseCommand = new RelayCommand(arg => CloseButtonClicked());
             ContinueCommand = new RelayCommand(arg => ContinueButtonClicked());
             ExitCommand = new RelayCommand(arg => ExitButtonClicked());
@@ -39,7 +36,7 @@ namespace CSToolkit.ViewModel
                 return;
 
             if (NeedToInstallWinPcap)
-                ConsoleCommandHandler.ExecuteWithoutOutput("WinPcap_4_1_2.exe", "", true);
+                ConsoleCommandHandler.ExecuteWithoutOutput("WinPcap_4_1_3.exe", "", true);
 
             var viewModel = new SecondWindowViewModel(Left, Top, Width, Height);
             UserInfo.SetUserInfo(UserName, SerialNumber, EmailAdress);
@@ -47,29 +44,6 @@ namespace CSToolkit.ViewModel
             var view = new SecondWindow { DataContext = viewModel };
             view.Show();
             WindowVisibility = Visibility.Hidden;
-        }
-
-        protected override void ExpandButtonClicked()
-        {
-            var workingArea = SystemParameters.WorkArea;
-
-            if (_windowIsMax == false)
-            {
-                Height = workingArea.Height;
-                Width = workingArea.Width;
-                _lastLeft = Left;
-                _lastTop = Top;
-                Left = workingArea.Right - Width;
-                Top = workingArea.Bottom - Height;
-                _windowIsMax = true;
-            }
-            else
-            {
-                SetDefaultWindowDimensions();
-                Left = _lastLeft;
-                Top = _lastTop;
-                _windowIsMax = false;
-            }
         }
 
     #region Public properties
@@ -121,26 +95,31 @@ namespace CSToolkit.ViewModel
         {
             bool isValid = true;
 
-            if (!validationRules.IsUserNameValid(UserName))
+            if ( !validationRules.IsUserNameValid( UserName ))
             {
                 isValid = false;
-                NameIsValidEvent(this, new DataValidationEventArgs(false));
+
+                if (NameIsValidEvent != null)
+                    NameIsValidEvent(this, new DataValidationEventArgs(false));
             }
             else
             {
-                NameIsValidEvent(this, new DataValidationEventArgs(true));
+                if (NameIsValidEvent != null)
+                    NameIsValidEvent(this, new DataValidationEventArgs(true));
             }
 
-            if (!validationRules.IsSerialNumberValid(SerialNumber))
+            if ( !validationRules.IsSerialNumberValid( SerialNumber ))
             {
                 isValid = false;
-                SerialNumberIsValidEvent(this, new DataValidationEventArgs(false));
+
+                if (SerialNumberIsValidEvent != null)
+                    SerialNumberIsValidEvent(this, new DataValidationEventArgs(false));
             }
             else
             {
-                SerialNumberIsValidEvent(this, new DataValidationEventArgs(true));
-            }
-
+                if (SerialNumberIsValidEvent != null)
+                    SerialNumberIsValidEvent(this, new DataValidationEventArgs(true));
+            }    
             return isValid;
         }
     #endregion

@@ -50,3 +50,5 @@ B:\Repos\CSToolkit\CSToolkit\obj\Release\CSToolkit.csproj.GenerateResource.Cache
 B:\Repos\CSToolkit\CSToolkit\obj\Release\CSToolkit.exe
 B:\Repos\CSToolkit\CSToolkit\obj\Release\CSToolkit.pdb
 B:\Repos\CSToolkit\CSToolkit\obj\Release\CSToolkit.csprojResolveAssemblyReference.cache
+B:\Repos\CSToolkit\CSToolkit\bin\Release\WpfAnimatedGif.dll
+B:\Repos\CSToolkit\CSToolkit\bin\Release\WpfAnimatedGif.xml

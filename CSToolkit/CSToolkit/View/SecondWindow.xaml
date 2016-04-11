@@ -12,8 +12,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Border BorderBrush="Black" BorderThickness="1">
-
+    <Border BorderBrush="#3399FF" BorderThickness="5,0,5,5">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -22,13 +21,12 @@
                 <RowDefinition Height="*" MinHeight="60"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Background="#d1d1d1">
+            <Grid Grid.Row="0" Background="#3399FF">
                 <StackPanel Orientation="Horizontal">
                     <Image></Image>
-                    <Label Margin="5,0,0,0" FontSize="14" Grid.Column="1">CWS Diagnostic Tool v1.2</Label>
+                    <Label Margin="5,0,0,0" FontSize="14" Foreground="White" Grid.Column="1">CWS Diagnostic Tool v1.2</Label>
                 </StackPanel>
                 <Button Command="{Binding HideCommand}" Style="{StaticResource HideButtonStyle}"></Button>
-                <Button Command="{Binding ExpandCommand}" Style="{StaticResource ExpandButtonStyle}"></Button>
                 <Button Command="{Binding CloseCommand}" Style="{StaticResource CrossButtonStyle}"></Button>
             </Grid>
 

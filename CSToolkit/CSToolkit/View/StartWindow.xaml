@@ -12,36 +12,63 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Border BorderBrush="Black" BorderThickness="1">
+    <Border BorderBrush="#3399FF" BorderThickness="5,0,5,5">
 
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="160"></RowDefinition>
                 <RowDefinition Height="240"></RowDefinition>
                 <RowDefinition Height="*" MinHeight="60"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Background="#d1d1d1">
+            <Grid Grid.Row="0" Background="#3399FF">
                 
                 <StackPanel Orientation="Horizontal">
                     <Image></Image>
-                    <Label Margin="5,0,0,0" FontSize="14" Grid.Column="1">CWS Diagnostic Tool v1.2</Label>
+                    <Label Margin="5,0,0,0" FontSize="14" Foreground="White" Grid.Column="1">CWS Diagnostic Tool v1.2</Label>
                 </StackPanel>
                 
                 <Button Command="{Binding HideCommand}" Style="{StaticResource HideButtonStyle}"></Button>
-                <Button Command="{Binding ExpandCommand}" Style="{StaticResource ExpandButtonStyle}"></Button>
                 <Button Command="{Binding CloseCommand}" Style="{StaticResource CrossButtonStyle}"></Button>
                 
             </Grid>
 
-            <Grid Grid.Row="1">
-
+            <Border Grid.Row="1"  BorderBrush="#7999FF" BorderThickness="1" Margin="20,20,20,20">
+                <StackPanel>
+                    <Label>Prerequisites - Before you begin, please ensure the below ports are opened on your firewall to ensure all tests work successful:</Label>
+                    
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="5" Width="5" Fill="Black" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            <TextBlock Margin="50,0,0,0">Port 80 (TCP) Outbound</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="5" Width="5" Fill="Black" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            <TextBlock Margin="50,0,0,0">Port 443 (TCP) Outbound</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="5" Width="5" Fill="Black" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            <TextBlock Margin="50,0,0,0">Port 8080 (TCP) Outbound</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="5" Width="5" Fill="Black" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            <TextBlock Margin="50,0,0,0">ICMP (Type 30)</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="5" Width="5" Fill="Black" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                            <TextBlock Margin="50,0,0,0">Port 53 (TCP/UDP)</TextBlock>
+                        </StackPanel>
+                </StackPanel>
+            </Border>
+            
+            <Grid Grid.Row="2">
+                
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="3*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" HorizontalAlignment="Center" FontSize="14" Height="35" Width="480" HorizontalContentAlignment="Center">Please enter your information in the fields below</Label>
+                <Label Grid.Row="0" HorizontalAlignment="Center" Height="35" Width="480" HorizontalContentAlignment="Center">Please enter your information in the fields below</Label>
 
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
@@ -60,16 +87,16 @@
                         <Label Grid.Row="2">CEC ID(Optional)</Label>
                         <TextBox Grid.Row="2" Margin="145,0,35,0" Text="{Binding Path=EmailAdress, Mode=TwoWay}"></TextBox>
                                        
-                    <Label Grid.Row="3" Width="210">Install WinPcap (required)</Label>
+                    <Label Grid.Row="3" Width="210">Install WinPcap (if required)</Label>
                     <CheckBox Grid.Row="3" Name="InstallWinPcapCheckBox" IsChecked="{Binding NeedToInstallWinPcap}" HorizontalAlignment="Left" Margin="255,0,0,0" VerticalAlignment="Center"></CheckBox>
                 </Grid>
 
             </Grid>
 
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,12">
-                <Button Name="ContinueButton" Style="{StaticResource GeneralButtonStyle}" Margin="0,0,20,0" Command="{Binding ContinueCommand}">Continue</Button>
-                <Button Style="{StaticResource GeneralButtonStyle}"  Margin="20,0,0,0" Command="{Binding ExitCommand}">Exit</Button>
-            </StackPanel>
+                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,12">
+                    <Button Name="ContinueButton" Style="{StaticResource GeneralButtonStyle}" Margin="0,0,20,0" Command="{Binding ContinueCommand}">Continue</Button>
+                    <Button Style="{StaticResource GeneralButtonStyle}"  Margin="20,0,0,0" Command="{Binding ExitCommand}">Exit</Button>
+                </StackPanel>
         </Grid>
     </Border>
 </Window>

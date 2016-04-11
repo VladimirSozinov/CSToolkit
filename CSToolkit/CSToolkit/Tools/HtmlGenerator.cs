@@ -100,12 +100,11 @@ namespace CSToolkit.Tools
         {
             var links = new List<string>();
 
-            for(int i=0; i< list.Count;i++)
+            for(int i = 0; i < list.Count; i ++)
             {
                 var c = string.Format("<li><a href=\"#{0}\">{1}</a></li>", i + 1, list[i].Operation);
                 links.Add(c);
-            }
-
+            }    
             return links;
         }
     }

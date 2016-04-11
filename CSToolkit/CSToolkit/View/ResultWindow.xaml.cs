@@ -5,7 +5,7 @@ using System.Windows.Input;
 namespace CSToolkit.View
 {
     public partial class ResultWindow : Window
-    {
+    {                  
         public ResultWindow(string proxy1, string proxy2)
         {
             InitializeComponent();
@@ -32,6 +32,7 @@ namespace CSToolkit.View
         private void HtmlHasGenerated()
         {
             ContinueButton.IsEnabled = true;
+            ExitButton.IsEnabled = true;
         }
 
         private void ZiplHasGenerated()

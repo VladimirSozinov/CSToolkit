@@ -1,16 +1,26 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 
 namespace CSToolkit.Model
 {
     public class Operation : INotifyPropertyChanged
-    {
-        public string CommandName { get; set; }
-        public List<SubCommand> SetCommands { get; set; }
-        public string TxtName { get; set; }
+    {        
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        private States _currentState;
+        private System.Timers.Timer _atimer;
+        private string _currentState;
+        private Visibility _circleImageVisibility;
+
+        public static Dictionary<States, string> AdaptedStates = new Dictionary<States, string> 
+        { 
+            {States.Waiting,    "Waiting"},
+            {States.InProgress, "In Progress"},
+            {States.Finished,   "Finished"},
+            {States.Failed,     "Failed"}
+            
+        };
 
         public enum States
         {
@@ -19,19 +29,33 @@ namespace CSToolkit.Model
             Finished,
             Failed
         }
-        
-        public States CurrentState 
+
+        public List<SubCommand> SetCommands { get; set; }
+
+        public string CommandName { get; set; }
+
+        public string TxtName { get; set; }
+
+        public string CurrentState 
         { 
-            get
-            {
-                return _currentState;
-            }
+            get { return _currentState; }
             set
             {
                 _currentState = value;
+                CheckState();
                 OnPropertyChanged("CurrentState");
             }
         }
+                  
+        public Visibility CircleImageVisibility
+        {
+            get { return _circleImageVisibility; }
+            set
+            {
+                _circleImageVisibility = value;
+                OnPropertyChanged("CircleImageVisibility");
+            }
+        }                                          
 
         public ObservableCollection<Operation> GetOperations(string proxy1, string proxy2, string pingHost)
         {
@@ -44,20 +68,33 @@ namespace CSToolkit.Model
 
             for (int i = 0; i < collection.Count; i++)
             {
-                var command = new Operation { CommandName = list[i], SetCommands = collection[i], CurrentState = Operation.States.Waiting, TxtName = listTxtNames[i] };
+                var command = new Operation { CommandName = list[i],
+                                              SetCommands = collection[i],
+                                              CurrentState = AdaptedStates[States.Waiting],
+                                              TxtName = listTxtNames[i],
+                                              CircleImageVisibility = Visibility.Hidden};
                 commands.Add(command);
-            }
-
+            }        
             return commands;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void CheckState()
+        {
+            if (_currentState == AdaptedStates[States.InProgress])
+            {
+                CircleImageVisibility = Visibility.Visible;
+            }
+            if (_currentState == AdaptedStates[States.Finished] || _currentState == AdaptedStates[States.Failed])
+            {
+                CircleImageVisibility = Visibility.Hidden;
             }
         }
     }

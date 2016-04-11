@@ -12,7 +12,6 @@ namespace CSToolkit.View
         {
             InitializeComponent();
             DataContextChanged += new DependencyPropertyChangedEventHandler(SecondWindowDataContextChanged);
-            PingHostTextBox.Foreground = (Brush)new BrushConverter().ConvertFrom("#FFABADB3");
         }
 
         private void SecondWindowDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)

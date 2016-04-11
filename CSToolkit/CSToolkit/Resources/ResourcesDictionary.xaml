@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="GeneralButtonStyle" TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="Brown"/>
+        <Setter Property="Background" Value="#3399FF"/>
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Height" Value="37" />
         <Setter Property="Width" Value="150" />
@@ -18,10 +18,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Button.IsPressed" Value="True">
-                            <Setter Property="Background" Value="#d64242" />
+                            <Setter Property="Background" Value="#066cd1" />
                         </Trigger>
                         <Trigger Property="Button.IsEnabled" Value="False">
-                            <Setter Property="Background" Value="#eaa2a2" />
+                            <Setter Property="Background" Value="#BFDCF9" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -121,7 +121,7 @@
 
 
     <Style x:Key="HideButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource CommonButtonsStyle}">
-        <Setter Property="Margin" Value="0,0,120,0"/>
+        <Setter Property="Margin" Value="0,0,60,0"/>
         <Setter Property="Background">
             <Setter.Value>
                 <ImageBrush ImageSource="../Resources/HideReleased.png"/>
@@ -155,7 +155,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="Margin" Value="5,0,0,0"/>
         <Setter Property="FontFamily" Value="Arial"/>
-        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontSize" Value="12"/>
     </Style>
     
     <Style TargetType="Image">

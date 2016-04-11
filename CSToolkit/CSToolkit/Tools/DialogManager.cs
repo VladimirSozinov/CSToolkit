@@ -1,16 +1,11 @@
-﻿using Microsoft.Win32;
-using Microsoft.WindowsAPICodePack.Dialogs;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSToolkit.Tools
 {
     public class DialogManager
     {
-        public string GetDirectoryForSavingReportsDialog()
+        public static string GetDirectoryForSavingReportsDialog()
         {
             var folderSelectorDialog = new CommonOpenFileDialog();
             folderSelectorDialog.EnsureReadOnly = true;

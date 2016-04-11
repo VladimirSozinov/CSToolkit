@@ -242,3 +242,5 @@ B:\Repos\CSToolkit\CSToolkit\obj\Debug\View\StartWindow.baml
 B:\Repos\CSToolkit\CSToolkit\obj\Debug\CSToolkit.g.resources
 B:\Repos\CSToolkit\CSToolkit\obj\Debug\CSToolkit.Properties.Resources.resources
 B:\Repos\CSToolkit\CSToolkit\obj\Debug\CSToolkit.csproj.GenerateResource.Cache
+B:\Repos\CSToolkit\CSToolkit\bin\Debug\WpfAnimatedGif.dll
+B:\Repos\CSToolkit\CSToolkit\bin\Debug\WpfAnimatedGif.xml
