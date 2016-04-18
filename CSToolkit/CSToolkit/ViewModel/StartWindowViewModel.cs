@@ -1,7 +1,6 @@
 ﻿using CSToolkit.Model;
 using CSToolkit.Tools;
 using CSToolkit.View;
-using System;
 using System.Windows;
 
 namespace CSToolkit.ViewModel
@@ -38,7 +37,7 @@ namespace CSToolkit.ViewModel
             if (NeedToInstallWinPcap)
                 ConsoleCommandHandler.ExecuteWithoutOutput("WinPcap_4_1_3.exe", "", true);
 
-            var viewModel = new SecondWindowViewModel(Left, Top, Width, Height);
+            var viewModel = new SecondWindowViewModel(Left, Top, Width, 350);//Must be Height instead of 350
             UserInfo.SetUserInfo(UserName, SerialNumber, EmailAdress);
 
             var view = new SecondWindow { DataContext = viewModel };

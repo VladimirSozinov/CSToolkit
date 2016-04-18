@@ -7,20 +7,20 @@ namespace CSToolkit.Tools
     {
         public static string GetDirectoryForSavingReportsDialog()
         {
-            var folderSelectorDialog = new CommonOpenFileDialog();
-            folderSelectorDialog.EnsureReadOnly = true;
-            folderSelectorDialog.IsFolderPicker = true;
-            folderSelectorDialog.AllowNonFileSystemItems = false;
-            folderSelectorDialog.Multiselect = false;
-            folderSelectorDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            folderSelectorDialog.Title = "Choose folder for saving reports";
-            folderSelectorDialog.ShowDialog();
+            var dialog = new CommonOpenFileDialog();
+            dialog.EnsureReadOnly = true;
+            dialog.IsFolderPicker = true;
+            dialog.AllowNonFileSystemItems = false;
+            dialog.Multiselect = false;
+            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            dialog.Title = "Choose folder for saving reports";
+            dialog.ShowDialog();
 
             string targetDirectory = Environment.SpecialFolder.Desktop.ToString();
 
             try
             {
-                targetDirectory = folderSelectorDialog.FileName;
+                targetDirectory = dialog.FileName;
             }
             catch { }
 

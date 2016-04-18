@@ -1,8 +1,10 @@
 ﻿using CSToolkit.Validators;
 using System;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Input;
+using System.Reflection;//StaticReflection
 
 namespace CSToolkit.ViewModel
 {
@@ -16,7 +18,7 @@ namespace CSToolkit.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         public event Action HideButtonClickedEvent;
 
-        protected double DefaultWindowHeight = 500;
+        protected double DefaultWindowHeight = 350;
         protected double DefaultWindowWidth = 825;
         protected GeneralValidationRules validationRules;               
         protected double _top;
@@ -67,6 +69,37 @@ namespace CSToolkit.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+    //    protected virtual void OnPropertyChanged<T>(Expression<Func<T>> property)
+    //    {
+    //        if (PropertyChanged != null)
+    //        {
+    //            PropertyChanged(property.GetMemberInfo().Name);
+    //        }
+    //    }
+    //    private static MemberExpression GetMemberInfo(System.Linq.Expressions.Expression method)
+    //    {
+    //        LambdaExpression lambda = method as LambdaExpression;
+    //        if (lambda == null)
+    //            throw new ArgumentNullException("method");
+    //    
+    //        MemberExpression memberExpr = null;
+    //    
+    //        if (lambda.Body.NodeType == ExpressionType.Convert)
+    //        {
+    //            memberExpr = 
+    //                ((UnaryExpression)lambda.Body).Operand as MemberExpression;
+    //        }
+    //        else if (lambda.Body.NodeType == ExpressionType.MemberAccess)
+    //        {
+    //            memberExpr = lambda.Body as MemberExpression;
+    //        }
+    //    
+    //        if (memberExpr == null)
+    //            throw new ArgumentException("method");
+    //    
+    //        return memberExpr;
+    //    }
 
     #region Public properties
 

@@ -28,8 +28,8 @@ namespace CSToolkit.Model
 
         private static string GetCurrentDate()
         {
-            var date = DateTime.Now;
-            return String.Format(@"{0}-{1}{2}", date.ToString("ddMMMMyyyy"), date.ToString("HHmm"), "PST");
+            var date = DateTime.UtcNow;
+            return String.Format(@"{0}-{1}{2}", date.ToString("ddMMMMyyyy"), date.ToString("HHmm"), "GMT");
         }
     }
 }

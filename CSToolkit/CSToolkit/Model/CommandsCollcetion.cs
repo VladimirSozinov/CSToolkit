@@ -56,11 +56,11 @@ namespace CSToolkit.Model
             _setCommands.Add(executingTraceroute);
 
             var executingPing = new List<SubCommand>();
-            executingPing.Add(new SubCommand(@"ping", string.Format(@"-t -n 100 {0}", host)));
-            executingPing.Add(new SubCommand(@"bin\ping\tcping.exe", string.Format(@"-n 100 -w 500 {0} 80", host)));//1000
-            executingPing.Add(new SubCommand(@"bin\ping\tcping.exe", string.Format(@"-n 100 -w 500 {0} 8080", proxy1))); 
-            executingPing.Add(new SubCommand(@"bin\ping\tcping.exe", string.Format(@"-n 100 -w 500 {0} 8080", proxy2)));  
-            executingPing.Add(new SubCommand(@"bin\ping\http-ping.exe", string.Format(@"-v -c -d -q -n 100 {0}", host)));
+            executingPing.Add(new SubCommand(@"ping", string.Format(@"-t -n 50 {0}", host)));
+            executingPing.Add(new SubCommand(@"bin\ping\tcping.exe", string.Format(@"-n 50 -w 500 {0} 80", host)));//1000
+            executingPing.Add(new SubCommand(@"bin\ping\tcping.exe", string.Format(@"-n 50 -w 500 {0} 8080", proxy1))); 
+            executingPing.Add(new SubCommand(@"bin\ping\tcping.exe", string.Format(@"-n 50 -w 500 {0} 8080", proxy2)));  
+            executingPing.Add(new SubCommand(@"bin\ping\http-ping.exe", string.Format(@"-v -c -d -q -n 50 {0}", host)));
             _setCommands.Add(executingPing);
 
             var executingMtr = new List<SubCommand>();                                                                                                                                              

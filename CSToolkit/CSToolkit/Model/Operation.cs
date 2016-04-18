@@ -61,10 +61,9 @@ namespace CSToolkit.Model
         {
             var collection = new CommandsCollcetion(proxy1, proxy2, pingHost).GetCommands;
             var commands = new ObservableCollection<Operation>();
-            var operations = new OperationNames();
 
-            List<string> list = operations.Operations;
-            List<string> listTxtNames = operations.OperationFileNames;
+            List<string> list = OperationNames.Operations;
+            List<string> listTxtNames = OperationNames.OperationFileNames;
 
             for (int i = 0; i < collection.Count; i++)
             {

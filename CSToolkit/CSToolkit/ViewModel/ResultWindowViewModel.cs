@@ -224,11 +224,7 @@ namespace CSToolkit.ViewModel
 
         public string ResultText
         {
-            get
-            {
-                return _resultText;
-            }
-
+            get { return _resultText; }
             set
             {
                 _resultText = value;
@@ -238,11 +234,7 @@ namespace CSToolkit.ViewModel
 
         public string TitleText
         {
-            get
-            {
-                return _titleText;
-            }
-
+            get { return _titleText; }
             set
             {
                 _titleText = value;
@@ -252,11 +244,7 @@ namespace CSToolkit.ViewModel
 
         public double HalfOfWindowWidth
         {
-            get
-            {
-                return _halfOfWindowWidth;
-            }
-
+            get { return _halfOfWindowWidth; }
             set
             {
                 _halfOfWindowWidth = value;
@@ -266,11 +254,7 @@ namespace CSToolkit.ViewModel
 
         public string LinkButtonText
         {
-            get
-            {
-                return _linkButtonText;
-            }
-
+            get { return _linkButtonText; }
             set
             {
                 _linkButtonText = value;

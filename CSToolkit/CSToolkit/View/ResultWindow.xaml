@@ -41,7 +41,7 @@
                     <ListView Name="CommandList" ItemsSource="{Binding Operations}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                         <ListView.Resources>
                             <Style TargetType="{x:Type ListViewItem}">
-                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                             </Style>
                         </ListView.Resources>
                         <ListView.View>
@@ -51,12 +51,18 @@
                                         <DataTemplate>
                                             <DockPanel>
                                                 <Label Content="{Binding CommandName}" FontSize="12" Height="20" Padding="1" VerticalContentAlignment="Center" Margin="0,0,0,0"></Label>
-                                                <Image Visibility="{Binding CircleImageVisibility}" Width="16" Height="16" Margin="10,0,0,0" RenderTransformOrigin="0.5, 0.5" gif:ImageBehavior.AnimatedSource="../Resources/Circle.gif"></Image>
+                                                <Image Visibility="{Binding CircleImageVisibility}" Width="16" Height="16" Margin="10,0,0,0" HorizontalAlignment="Left" RenderTransformOrigin="0.5, 0.5" gif:ImageBehavior.AnimatedSource="../Resources/Circle.gif"></Image>
                                             </DockPanel>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn DisplayMemberBinding="{Binding CurrentState}" Header="Status" Width="{Binding HalfOfWindowWidth}"/>
+                                <GridViewColumn Header="Status" Width="{Binding HalfOfWindowWidth}">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Label Content="{Binding CurrentState}" Foreground="LightGray" Margin="0" FontSize="12" Height="20" Padding="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
