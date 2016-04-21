@@ -64,7 +64,7 @@
                         <TextBlock Margin="50,0,0,0">Port 53 (TCP/UDP)</TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Label Width="210" Margin="60,0,0,0">Install WinPcap (if required)</Label>
+                        <Label Width="210" Margin="60,0,0,0">Install WinPCAP (required)</Label>
                         <CheckBox Name="InstallWinPcapCheckBox" IsChecked="{Binding NeedToInstallWinPcap}"  Margin="0,5,0,0"></CheckBox>
                     </StackPanel>
                 </StackPanel>

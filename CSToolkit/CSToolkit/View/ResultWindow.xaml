@@ -59,7 +59,7 @@
                                 <GridViewColumn Header="Status" Width="{Binding HalfOfWindowWidth}">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding CurrentState}" Foreground="LightGray" Margin="0" FontSize="12" Height="20" Padding="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
+                                            <Label Content="{Binding CurrentState}" Margin="0" FontSize="12" Height="20" Padding="1" VerticalContentAlignment="Center" HorizontalAlignment="Center"></Label>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
