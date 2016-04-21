@@ -7,8 +7,10 @@ namespace CSToolkit.Tools
 {
     public class ZipGenerator
     {
-        public static void CreateZipArchive(List<OperationReport> operations, string directory, string htmlName)
+        public static void CreateZipArchive(string directory, string htmlName)
         {
+            var operations = OperationReportsCollection.Instance().Reports;
+
             for (int i = 0; i < operations.Count; i++)
             {
                 try

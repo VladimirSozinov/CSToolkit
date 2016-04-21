@@ -53,24 +53,6 @@ namespace CSToolkit.View
             }
         }
 
-        private void ExpandInfoAreaClicked(object sender, RoutedEventArgs e)
-        {
-            if(ExpandInfoAreaBtton.Content == "-")
-            {
-                ExpandInfoAreaBtton.Content = "+";
-                PreregquisitesArea.Width = 22;
-                PreregquisitesArea.Height = 22;
-                MainWindow.Height = 350;  
-            }
-            else
-            {     
-                ExpandInfoAreaBtton.Content = "-";
-                PreregquisitesArea.Width = 770;
-                PreregquisitesArea.Height = 160;
-                MainWindow.Height = 500;
-            }
-        }
-
         private void HideClicked()
         {
             WindowState = WindowState.Minimized;

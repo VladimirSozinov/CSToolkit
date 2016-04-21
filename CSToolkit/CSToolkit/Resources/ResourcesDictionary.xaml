@@ -54,7 +54,7 @@
     </Style>
 
     <Style x:Key="ExpandAreaButtonStyle" TargetType="Button">
-        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="Width" Value="20"/>
         <Setter Property="Height" Value="20"/>
@@ -64,16 +64,43 @@
         <Setter Property="Background" Value="#3399FF"/>
     </Style>
 
-    <Style x:Key="PreregquisitesAreaStyle" TargetType="Border">
+    <Style x:Key="PrerequisitesAreaStyle" TargetType="Border">
         <Setter Property="Width" Value="22"/>
         <Setter Property="Height" Value="22"/>
         <Setter Property="BorderBrush" Value="#7999FF"/>
         <Setter Property="Margin" Value="20,20,20,10"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ElementName=ExpandInfoAreaBtton, Path=Content}" Value="+">
+                <Setter Property="Width" Value="100"/>
+                <Setter Property="Height" Value="22"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=ExpandInfoAreaBtton, Path=Content}" Value="-">
+                <Setter Property="Width" Value="770"/>
+                <Setter Property="Height" Value="160"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
-            <!-- Styles for common buttons in the top right corner of the window - Hide, Expand, Close-->    
+    <Style x:Key="PrerequisiteButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Content" Value="Prerequisites"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ElementName=ExpandInfoAreaBtton, Path=Content}" Value="+">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=ExpandInfoAreaBtton, Path=Content}" Value="-">
+                <Setter Property="Visibility" Value="Hidden"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Styles for common buttons in the top right corner of the window - Hide, Expand, Close-->    
     
     <Style x:Key="CommonButtonsStyle" TargetType="{x:Type Button}">
         <Setter Property="HorizontalAlignment" Value="Right"/>

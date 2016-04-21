@@ -15,7 +15,7 @@ namespace CSToolkit.Tools
             return _reportName;
         }
 
-        public static string WriteToHtml(List<OperationReport> reports)
+        public static string GenerateHtml()
         {
             try
             {
@@ -42,6 +42,8 @@ namespace CSToolkit.Tools
                 stringWriter.WriteLine("<h1 id=\"top\">Diagnostic Report</h1>");
                 stringWriter.WriteLine("<h3 id=\"top\">Click on any of the tests below to see its results:</h3>");
                 stringWriter.WriteLine("<ul class=\"menu\">");
+
+                var reports = OperationReportsCollection.Instance().Reports;
 
                 foreach(var link in GetLinks(reports))
                 {

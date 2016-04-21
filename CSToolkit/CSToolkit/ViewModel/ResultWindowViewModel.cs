@@ -1,23 +1,16 @@
 ﻿using CSToolkit.Model;
 using CSToolkit.Tools;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Timers;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
-
+using System.Threading.Tasks;
+using System.Windows.Input;       
 
 namespace CSToolkit.ViewModel
 {
     public class ResultWindowViewModel : BaseViewModel
     {                                               
         private ObservableCollection<Operation> _operations;
-        private System.Timers.Timer _aTimer;
-        private List<OperationReport> _operationReports;
         private string _windowHeaderText;
         private string _resultText;
         private string _reportName;
@@ -26,9 +19,7 @@ namespace CSToolkit.ViewModel
         private string _proxy1;
         private string _proxy2;
         private string _pingHost;
-        private double _halfOfWindowWidth;
-        private BackgroundWorker worker;
-        private object _syncObject = new Object();  
+        private double _halfOfWindowWidth; 
         private int _counter;
 
         public event Action HtmlHasGenerated;
@@ -46,7 +37,7 @@ namespace CSToolkit.ViewModel
             SetDefaultWindowDimensions();
             SetDefaultFields();
             BindCommands();
-            StartProcessing();
+            StartProcessing(2000);//Delay
         }
 
         private void BindCommands()
@@ -61,26 +52,17 @@ namespace CSToolkit.ViewModel
         private void SetDefaultFields()
         {
             _operations = new ObservableCollection<Operation>();
-            _operationReports = new List<OperationReport>();
             WindowHeaderText = string.Format("Results for Primary Proxy= {0} & Secondary Proxy = {1}", Proxy1, Proxy2);
             ResultText = string.Format("Finished 0 out of {0} tests", _operations.Count);
+        } 
+
+        private async void StartProcessing(int timeoutInMilliseconds)
+        {
+            await Task.Delay(timeoutInMilliseconds);
+            StartExecuting();
         }
 
-        private void StartProcessing()
-        {
-            _aTimer = new System.Timers.Timer(2000);
-            _aTimer.Elapsed += OnTimedEvent;
-            _aTimer.Enabled = true;
-        }
-        
-        private void OnTimedEvent(object s, EventArgs e)
-        {
-            _aTimer.Stop();
-            _aTimer.Enabled = false;
-            MyStartExecuting();
-        }
-
-        private void MyStartExecuting()
+        private void StartExecuting()
         {
             for (int i = 0; i < _operations.Count; i++)
             {
@@ -92,71 +74,35 @@ namespace CSToolkit.ViewModel
                     });
                 }
 
-                try
-                {
-                    worker = new BackgroundWorker();
-                    worker.DoWork += new DoWorkEventHandler(MyWorkerDoWork);
-                    worker.RunWorkerAsync(_operations[i]);
-                }
-                catch { }
+                var myWorker = new Executer(_operations[i], i);
+                myWorker.ProcessingFinished += ProcessingFinished;  
             }
         }
-        
-        private void MyWorkerDoWork(object sender, DoWorkEventArgs e)
-        {
-            var operation = (Operation)e.Argument;
-            var output = String.Empty;
-            var reports = new List<Report>();
 
-            foreach (var subCommand in operation.SetCommands)
-            {                
-                output = ConsoleCommandHandler.ExecuteWithOutput(subCommand.Key, subCommand.Value);
-                var fullCommand = string.Format("{0} {1}", subCommand.Key, subCommand.Value);
-                reports.Add(new Report(fullCommand, output));
-            }
-
-            var operationReport = new OperationReport(operation.TxtName, reports);
-
-            lock(_syncObject)
-            {          
-                _operationReports.Add(operationReport);
-            }
-
-            operation.CurrentState = Operation.AdaptedStates[Operation.States.Finished];  
-            EvaluateFinishedProcesses();
-        }
-
-        private void EvaluateFinishedProcesses()
+        private void ProcessingFinished(object sender, MyWorkerEventArgs e)
         {
             int count = _operations.Count(operation => operation.CurrentState == Operation.AdaptedStates[Operation.States.Finished]);
+            count ++;// Becouse current operation state still is "In Progress"
+
+            if (count == _operations.Count)
+            {
+                _reportName = HtmlGenerator.GenerateHtml();
+            }
 
             App.Current.Dispatcher.Invoke((Action)delegate
-            {
+            {   
+                _operations[e.OperationOrdinalNumber].CurrentState = Operation.AdaptedStates[Operation.States.Finished];  
                 ResultText = string.Format("Finished {0} out of {1} tests", count, _operations.Count);
 
                 if (count == _operations.Count)
                 {
-                    GenerateHtmlReport();
+                    ResultText += " - See results in HTML format at ";
+                    LinkButtonText = "http://server1.com/" + _reportName;
+
+                    if (HtmlHasGenerated != null)
+                        HtmlHasGenerated();
                 }
-            });
-        } 
-
-        private void GenerateHtmlReport()
-        {
-            AddReportForUserInfo();        
-            _reportName = HtmlGenerator.WriteToHtml(_operationReports);
-            ResultText += " - See results in HTML format at ";
-            LinkButtonText = "http://server1.com/" + _reportName;
-
-            if (HtmlHasGenerated != null)
-                HtmlHasGenerated();
-        }
-
-        private void AddReportForUserInfo()
-        {
-            var listReports = new List<Report>();
-            listReports.Add(new Report("user data collecting", UserInfo.GetInfoForReport()));//Adding report for UserInfo
-            _operationReports[0] = new OperationReport(_operationReports[0].Operation, listReports);
+            });                                
         }
                 
     #region Public properties
@@ -267,7 +213,7 @@ namespace CSToolkit.ViewModel
         protected override void ContinueButtonClicked()
         {
             var _defaultDirectory = DialogManager.GetDirectoryForSavingReportsDialog();            
-            ZipGenerator.CreateZipArchive(_operationReports, _defaultDirectory, _reportName);
+            ZipGenerator.CreateZipArchive(_defaultDirectory, _reportName);
 
             if (ZiplHasGenerated != null && _counter++ == 2)
                 ZiplHasGenerated();   

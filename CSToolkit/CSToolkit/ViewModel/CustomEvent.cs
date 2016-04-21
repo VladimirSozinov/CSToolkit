@@ -4,7 +4,18 @@ namespace CSToolkit.ViewModel
 {
     public class CustomEvent
     {
-        public delegate void CustomHandler(object sender, DataValidationEventArgs isValid);
+        public delegate void CustomHandler(object sender, DataValidationEventArgs isValid);   
+        public delegate void MyWorkerHandler(object sender, MyWorkerEventArgs e);
+    }
+
+    public class MyWorkerEventArgs : EventArgs
+    {
+        public int OperationOrdinalNumber { get; set; }
+
+        public MyWorkerEventArgs(int count)
+        {
+            OperationOrdinalNumber = count;
+        }
     }
 
     public class DataValidationEventArgs : EventArgs

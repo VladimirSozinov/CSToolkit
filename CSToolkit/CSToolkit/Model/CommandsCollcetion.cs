@@ -13,6 +13,7 @@ namespace CSToolkit.Model
             _setCommands = new List<List<SubCommand>>();
             
             var basicInfo = new List<SubCommand>();
+            basicInfo.Add(new SubCommand(UserInfo.GetNameOfOperation(), ""));
             _setCommands.Add(basicInfo);
 
             var collectingWhoami = new List<SubCommand>();

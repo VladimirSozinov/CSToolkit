@@ -2,6 +2,7 @@
 using CSToolkit.Tools;
 using CSToolkit.View;
 using System.Windows;
+using System.Windows.Input;
 
 namespace CSToolkit.ViewModel
 {
@@ -11,6 +12,9 @@ namespace CSToolkit.ViewModel
         private string _phoneNumber;
         private string _emailAdress;
         private bool _needToInstallWinPcap = true;
+        private string _expandInfoAreaButtonText = "+";
+
+        public ICommand ExpandInfoAreaCommand { get; set; }
                                                                                                                                     
         public event CustomEvent.CustomHandler NameIsValidEvent;
         public event CustomEvent.CustomHandler SerialNumberIsValidEvent;
@@ -23,6 +27,7 @@ namespace CSToolkit.ViewModel
 
         private void BindCommands()
         {
+            ExpandInfoAreaCommand = new RelayCommand(arg => ExpandInfoAreaButtonClicked());
             CloseCommand = new RelayCommand(arg => CloseButtonClicked());
             ContinueCommand = new RelayCommand(arg => ContinueButtonClicked());
             ExitCommand = new RelayCommand(arg => ExitButtonClicked());
@@ -43,6 +48,20 @@ namespace CSToolkit.ViewModel
             var view = new SecondWindow { DataContext = viewModel };
             view.Show();
             WindowVisibility = Visibility.Hidden;
+        }
+
+        private void ExpandInfoAreaButtonClicked()
+        {
+            if(ExpandInfoAreaButtonText == "+")
+            {
+                ExpandInfoAreaButtonText = "-";
+                Height = 500;
+            }
+            else
+            {
+                ExpandInfoAreaButtonText = "+";
+                Height = 350;
+            }
         }
 
     #region Public properties
@@ -85,7 +104,17 @@ namespace CSToolkit.ViewModel
                 _needToInstallWinPcap = value;
                 OnPropertyChanged("NeedToInstallWinPcap");
             }
-        }    
+        }
+
+        public string ExpandInfoAreaButtonText 
+        {
+            get { return _expandInfoAreaButtonText; }
+            set
+            {
+                _expandInfoAreaButtonText = value;
+                OnPropertyChanged("ExpandInfoAreaButtonText");
+            }
+        }
     #endregion
 
     #region DataValidation

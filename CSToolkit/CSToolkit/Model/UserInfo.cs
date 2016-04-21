@@ -31,5 +31,10 @@ namespace CSToolkit.Model
             var date = DateTime.UtcNow;
             return String.Format(@"{0}-{1}{2}", date.ToString("ddMMMMyyyy"), date.ToString("HHmm"), "GMT");
         }
+
+        public static string GetNameOfOperation()
+        {
+            return "user data collecting";
+        }
     }
 }

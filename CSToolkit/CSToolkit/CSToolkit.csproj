@@ -96,10 +96,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\Executer.cs" />
     <Compile Include="Model\CommandsCollcetion.cs" />
     <Compile Include="Model\Operation.cs" />
     <Compile Include="Model\OperationNames.cs" />
     <Compile Include="Model\OperationReport.cs" />
+    <Compile Include="Model\OperationReportsCollection.cs" />
     <Compile Include="Model\Report.cs" />
     <Compile Include="Model\SubCommand.cs" />
     <Compile Include="Model\UserInfo.cs" />
