@@ -73,12 +73,12 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding ElementName=ExpandInfoAreaBtton, Path=Content}" Value="+">
-                <Setter Property="Width" Value="100"/>
+                <Setter Property="Width" Value="22"/>
                 <Setter Property="Height" Value="22"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding ElementName=ExpandInfoAreaBtton, Path=Content}" Value="-">
                 <Setter Property="Width" Value="770"/>
-                <Setter Property="Height" Value="160"/>
+                <Setter Property="Height" Value="210"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -88,8 +88,33 @@
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Width" Value="80"/>
+
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="50,20,20,10"/>
+        
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="Content" Value="Prerequisites"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ElementName=ExpandInfoAreaBtton, Path=Content}" Value="+">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=ExpandInfoAreaBtton, Path=Content}" Value="-">
+                <Setter Property="Visibility" Value="Hidden"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <Style x:Key="PrerequisiteTextStyle" TargetType="TextBlock">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Width" Value="80"/>
+
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="50,20,20,10"/>
+
+        <Setter Property="Text" Value="Prerequisites"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding ElementName=ExpandInfoAreaBtton, Path=Content}" Value="+">
                 <Setter Property="Visibility" Value="Visible"/>

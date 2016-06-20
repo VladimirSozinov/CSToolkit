@@ -52,7 +52,7 @@ namespace CSToolkit.Model
             }
 
             _reports[ordinalNumber] = new Report(fullCommand, output); 
-            _countOfFinishedCommands++;
+            _countOfFinishedCommands ++;
 
             if (_countOfFinishedCommands == _amountOfCommands)
             {      

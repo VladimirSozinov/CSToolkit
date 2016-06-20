@@ -97,7 +97,7 @@ namespace CSToolkit.ViewModel
                 if (count == _operations.Count)
                 {
                     ResultText += " - See results in HTML format at ";
-                    LinkButtonText = "http://server1.com/" + _reportName;
+                    LinkButtonText = _reportName;
 
                     if (HtmlHasGenerated != null)
                         HtmlHasGenerated();

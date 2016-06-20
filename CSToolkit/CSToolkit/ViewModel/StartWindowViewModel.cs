@@ -40,7 +40,7 @@ namespace CSToolkit.ViewModel
                 return;
 
             if (NeedToInstallWinPcap)
-                ConsoleCommandHandler.ExecuteWithoutOutput("WinPcap_4_1_3.exe", "", true);
+                ConsoleCommandHandler.ExecuteWithoutOutput(@"bin\winpcap\WinPcap_4_1_3.exe", "", true);
 
             var viewModel = new SecondWindowViewModel(Left, Top, Width, 350);//Must be Height instead of 350
             UserInfo.SetUserInfo(UserName, SerialNumber, EmailAdress);
@@ -55,7 +55,7 @@ namespace CSToolkit.ViewModel
             if(ExpandInfoAreaButtonText == "+")
             {
                 ExpandInfoAreaButtonText = "-";
-                Height = 500;
+                Height = 550;
             }
             else
             {

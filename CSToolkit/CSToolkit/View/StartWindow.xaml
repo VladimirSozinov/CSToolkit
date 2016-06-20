@@ -34,42 +34,50 @@
 
             </Grid>
 
+            
+            
             <Border Style="{StaticResource PrerequisitesAreaStyle}" Grid.Row="1">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Button Name="ExpandInfoAreaBtton" Command="{Binding ExpandInfoAreaCommand}" Style="{StaticResource ExpandAreaButtonStyle}" Content="{Binding ExpandInfoAreaButtonText, Mode=TwoWay}"></Button>
-                        <Button Command="{Binding ExpandInfoAreaCommand}" Style="{StaticResource PrerequisiteButtonStyle}">Prerequisites</Button>
-                    </StackPanel>
+                        </StackPanel>
                     
-                    <Label>Prerequisites - Before you begin, please ensure the below ports are opened on your firewall to ensure all tests work successful:</Label>
-                 
+                    <Label Height="20" VerticalContentAlignment="Bottom" Padding="0,0,0,0" Margin="40,0,0,0">Prerequisites:</Label>
+                    <Label Height="25" VerticalContentAlignment="Top" Padding="0,0,0,0" Margin="40,0,0,0">Before you begin, please ensure you've met the below prerequisites so that all tests are successfully completed:</Label>
+
                     <StackPanel Orientation="Horizontal">
-                        <Ellipse Height="5" Width="5" Fill="Black" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                        <TextBlock Margin="50,0,0,0">Port 80 (TCP) Outbound</TextBlock>
+                        <TextBlock Margin="40,0,0,0">1. Open these ports on your firewall:</TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Ellipse Height="5" Width="5" Fill="Black" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                        <TextBlock Margin="50,0,0,0">Port 443 (TCP) Outbound</TextBlock>
+                        <Ellipse Height="5" Width="5" Fill="Black" VerticalAlignment="Center" Margin="50,0,0,0"/>
+                        <TextBlock Margin="20,0,0,0">Port 80 (TCP) Outbound</TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Ellipse Height="5" Width="5" Fill="Black" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                        <TextBlock Margin="50,0,0,0">Port 8080 (TCP) Outbound</TextBlock>
+                        <Ellipse Height="5" Width="5" Fill="Black" VerticalAlignment="Center" Margin="50,0,0,0"/>
+                        <TextBlock Margin="20,0,0,0">Port 443 (TCP) Outbound</TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Ellipse Height="5" Width="5" Fill="Black" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                        <TextBlock Margin="50,0,0,0">ICMP (Type 30)</TextBlock>
+                        <Ellipse Height="5" Width="5" Fill="Black" VerticalAlignment="Center" Margin="50,0,0,0"/>
+                        <TextBlock Margin="20,0,0,0">Port 8080 (TCP) Outbound</TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Ellipse Height="5" Width="5" Fill="Black" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                        <TextBlock Margin="50,0,0,0">Port 53 (TCP/UDP)</TextBlock>
+                        <Ellipse Height="5" Width="5" Fill="Black" VerticalAlignment="Center" Margin="50,0,0,0"/>
+                        <TextBlock Margin="20,0,0,0">ICMP (Type 30)</TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Label Width="210" Margin="60,0,0,0">Install WinPCAP (required)</Label>
+                        <Ellipse Height="5" Width="5" Fill="Black" VerticalAlignment="Center" Margin="50,0,0,0"/>
+                        <TextBlock Margin="20,0,0,0">Port 53 (TCP/UDP) Outbound</TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="20,10,0,0">
+                        <Label Width="210">2. Install WinPCAP (required)</Label>
                         <CheckBox Name="InstallWinPcapCheckBox" IsChecked="{Binding NeedToInstallWinPcap}"  Margin="0,5,0,0"></CheckBox>
                     </StackPanel>
+                    
                 </StackPanel>
             </Border>
-
+                       
+            <TextBlock Grid.Row="1" Style="{StaticResource PrerequisiteTextStyle}"></TextBlock>
+            
             <Grid Grid.Row="2">
 
                 <Grid.RowDefinitions>
