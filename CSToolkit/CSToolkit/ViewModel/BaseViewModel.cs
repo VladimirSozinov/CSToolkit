@@ -18,8 +18,8 @@ namespace CSToolkit.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
         public event Action HideButtonClickedEvent;
 
-        protected double DefaultWindowHeight = 350;
-        protected double DefaultWindowWidth = 825;
+        protected double DefaultWindowHeight = 330;
+        protected double DefaultWindowWidth = 750;
         protected GeneralValidationRules validationRules;               
         protected double _top;
         protected double _left;

@@ -11,7 +11,12 @@ body {
 
     padding: 30px;
 
-    border-top: 5px solid #3399FF;}
+    border-top: 5px solid #3399FF;
+
+    background: url(//shared.odimg.com/img/logo/opendns_logo_100.gif) no-repeat 30px 33px;
+}
+
+
 
 h1, h2, h3 {
 
@@ -178,15 +183,23 @@ p.backtotop a {
     color: #999;
 }
 
-
 p.header {
-    display: block;
-    font-size: 2em;
-    margin-top: 0.67em;
-    margin-bottom: 0.67em;
-    margin-left: 0;
-    margin-right: 0;
-    font-weight: bold;}
+    font-family: arial, helvetica, verdana, sans-serif;
+
+    letter-spacing: -1px;
+
+    color: #4c555a;
+
+    font-weight: normal;
+
+    margin: 0 0 5px 0;
+
+    font-size: 30px;
+
+    padding: 0 0 0 115px;
+
+    margin: 0 0 20px 0;}
+
 
 pre {
 

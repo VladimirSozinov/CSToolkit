@@ -43,7 +43,7 @@
                         </StackPanel>
                     
                     <Label Height="20" VerticalContentAlignment="Bottom" Padding="0,0,0,0" Margin="40,0,0,0">Prerequisites:</Label>
-                    <Label Height="25" VerticalContentAlignment="Top" Padding="0,0,0,0" Margin="40,0,0,0">Before you begin, please ensure you've met the below prerequisites so that all tests are successfully completed:</Label>
+                    <Label Height="25" VerticalContentAlignment="Top" Padding="0,0,0,0" Margin="40,0,0,0">Before you begin, please open the following ports on your Firewall to ensure that all tests are completed successfully :</Label>
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="40,0,0,0">1. Open these ports on your firewall:</TextBlock>
@@ -67,10 +67,6 @@
                     <StackPanel Orientation="Horizontal">
                         <Ellipse Height="5" Width="5" Fill="Black" VerticalAlignment="Center" Margin="50,0,0,0"/>
                         <TextBlock Margin="20,0,0,0">Port 53 (TCP/UDP) Outbound</TextBlock>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="20,10,0,0">
-                        <Label Width="210">2. Install WinPCAP (required)</Label>
-                        <CheckBox Name="InstallWinPcapCheckBox" IsChecked="{Binding NeedToInstallWinPcap}"  Margin="0,5,0,0"></CheckBox>
                     </StackPanel>
                     
                 </StackPanel>

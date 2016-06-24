@@ -13,7 +13,7 @@ namespace CSToolkit.Model
         private Report[] _reports;
         private Operation _operation;
 
-        public event CSToolkit.ViewModel.CustomEvent.MyWorkerHandler ProcessingFinished;
+        public event CustomEvent.MyWorkerHandler ProcessingFinished;
 
         public Executer(Operation operation, int highOrdinalNumber)
         {

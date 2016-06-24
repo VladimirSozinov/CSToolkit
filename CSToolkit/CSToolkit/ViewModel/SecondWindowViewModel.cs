@@ -1,8 +1,6 @@
 ﻿using CSToolkit.Model;
-using CSToolkit.Validators;
 using CSToolkit.View;
 using System.Windows;
-using System.Windows.Media;
 
 namespace CSToolkit.ViewModel
 {
@@ -60,27 +58,21 @@ namespace CSToolkit.ViewModel
             if (!validationRules.IsProxyValid(Proxy1))
             {
                 isValid = false;
-
-                if (Proxy1IsValidEvent != null)
-                    Proxy1IsValidEvent(this, new DataValidationEventArgs(false));
+                Proxy1IsValidEvent?.Invoke(this, new DataValidationEventArgs(false));
             }  
             else
             {
-                if (Proxy1IsValidEvent != null)
-                    Proxy1IsValidEvent(this, new DataValidationEventArgs(true));
+                Proxy1IsValidEvent?.Invoke(this, new DataValidationEventArgs(true));
             }
 
             if (!validationRules.IsProxyValid(Proxy2))
             {
                 isValid = false;
-
-                if (Proxy2IsValidEvent != null)
-                    Proxy2IsValidEvent(this, new DataValidationEventArgs(false));
+                Proxy2IsValidEvent?.Invoke(this, new DataValidationEventArgs(false));
             }   
             else
             {
-                if (Proxy2IsValidEvent != null)
-                    Proxy2IsValidEvent(this, new DataValidationEventArgs(true));
+                Proxy2IsValidEvent?.Invoke(this, new DataValidationEventArgs(true));
             }
 
             if (string.IsNullOrEmpty(PingHostText))
@@ -92,14 +84,11 @@ namespace CSToolkit.ViewModel
                 if (!validationRules.IsPingHostValid(PingHostText))
                 {
                     isValid = false;
-
-                    if (PingHostIsValidEvent != null)
-                        PingHostIsValidEvent(this, new DataValidationEventArgs(false));
+                    PingHostIsValidEvent?.Invoke(this, new DataValidationEventArgs(false));
                 }       
                 else
                 {
-                    if (PingHostIsValidEvent != null)
-                        PingHostIsValidEvent(this, new DataValidationEventArgs(true));
+                    PingHostIsValidEvent?.Invoke(this, new DataValidationEventArgs(true));
                 }
             }                                            
             return isValid;

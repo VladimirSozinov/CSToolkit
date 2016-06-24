@@ -30,7 +30,7 @@ namespace CSToolkit.ViewModel
         public ResultWindowViewModel(double left, double top, string proxy1, string proxy2, string pingHost) : base(left, top)
         {
             DefaultWindowHeight = 440; 
-            DefaultWindowWidth = 825;
+            DefaultWindowWidth = 750;
             Proxy1 = proxy1;
             Proxy2 = proxy2;
             PingHost = pingHost;
@@ -99,8 +99,7 @@ namespace CSToolkit.ViewModel
                     ResultText += " - See results in HTML format at ";
                     LinkButtonText = _reportName;
 
-                    if (HtmlHasGenerated != null)
-                        HtmlHasGenerated();
+                    HtmlHasGenerated?.Invoke();
                 }
             });                                
         }
@@ -222,7 +221,7 @@ namespace CSToolkit.ViewModel
         private void LinkButtonClicked()
         {
             var defaultBrowserPath = ExternalAppsManager.GetDefaultBrowserPath();
-            ConsoleCommandHandler.ExecuteWithoutOutput(defaultBrowserPath, string.Format(@"{0}", _reportName), false);
+            ConsoleCommandHandler.ExecuteWithoutOutput(defaultBrowserPath, string.Format(@"http://73.15.216.146/uploads/{0}", _reportName), false);
         }
     }
 }

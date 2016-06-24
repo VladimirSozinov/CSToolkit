@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CSToolkit.Model
 {
@@ -29,7 +25,7 @@ namespace CSToolkit.Model
         private static string GetCurrentDate()
         {
             var date = DateTime.UtcNow;
-            return String.Format(@"{0}-{1}{2}", date.ToString("ddMMMMyyyy"), date.ToString("HHmm"), "GMT");
+            return string.Format(@"{0}-{1}{2}", date.ToString("ddMMMMyyyy"), date.ToString("HHmm"), "GMT");
         }
 
         public static string GetNameOfOperation()

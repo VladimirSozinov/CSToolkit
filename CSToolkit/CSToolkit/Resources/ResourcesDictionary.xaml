@@ -77,8 +77,8 @@
                 <Setter Property="Height" Value="22"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding ElementName=ExpandInfoAreaBtton, Path=Content}" Value="-">
-                <Setter Property="Width" Value="770"/>
-                <Setter Property="Height" Value="210"/>
+                <Setter Property="Width" Value="700"/>
+                <Setter Property="Height" Value="180"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>

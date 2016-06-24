@@ -1,5 +1,4 @@
 ﻿using CSToolkit.Model;
-using CSToolkit.Tools;
 using CSToolkit.View;
 using System.Windows;
 using System.Windows.Input;
@@ -11,7 +10,6 @@ namespace CSToolkit.ViewModel
         private string _userName;
         private string _phoneNumber;
         private string _emailAdress;
-        private bool _needToInstallWinPcap = true;
         private string _expandInfoAreaButtonText = "+";
 
         public ICommand ExpandInfoAreaCommand { get; set; }
@@ -38,11 +36,8 @@ namespace CSToolkit.ViewModel
         {
             if (!DataIsValid())
                 return;
-
-            if (NeedToInstallWinPcap)
-                ConsoleCommandHandler.ExecuteWithoutOutput(@"bin\winpcap\WinPcap_4_1_3.exe", "", true);
-
-            var viewModel = new SecondWindowViewModel(Left, Top, Width, 350);//Must be Height instead of 350
+            
+            var viewModel = new SecondWindowViewModel(Left, Top, Width, Height);
             UserInfo.SetUserInfo(UserName, SerialNumber, EmailAdress);
 
             var view = new SecondWindow { DataContext = viewModel };
@@ -55,12 +50,12 @@ namespace CSToolkit.ViewModel
             if(ExpandInfoAreaButtonText == "+")
             {
                 ExpandInfoAreaButtonText = "-";
-                Height = 550;
+                Height = DefaultWindowHeight + 170;
             }
             else
             {
                 ExpandInfoAreaButtonText = "+";
-                Height = 350;
+                Height = DefaultWindowHeight;
             }
         }
 
@@ -96,16 +91,6 @@ namespace CSToolkit.ViewModel
             }
         }
 
-        public bool NeedToInstallWinPcap
-        {
-            get { return _needToInstallWinPcap; }
-            set
-            {
-                _needToInstallWinPcap = value;
-                OnPropertyChanged("NeedToInstallWinPcap");
-            }
-        }
-
         public string ExpandInfoAreaButtonText 
         {
             get { return _expandInfoAreaButtonText; }
@@ -126,27 +111,21 @@ namespace CSToolkit.ViewModel
             if ( !validationRules.IsUserNameValid( UserName ))
             {
                 isValid = false;
-
-                if (NameIsValidEvent != null)
-                    NameIsValidEvent(this, new DataValidationEventArgs(false));
+                NameIsValidEvent?.Invoke(this, new DataValidationEventArgs(false));
             }
             else
             {
-                if (NameIsValidEvent != null)
-                    NameIsValidEvent(this, new DataValidationEventArgs(true));
+                NameIsValidEvent?.Invoke(this, new DataValidationEventArgs(true));
             }
 
             if ( !validationRules.IsSerialNumberValid( SerialNumber ))
             {
                 isValid = false;
-
-                if (SerialNumberIsValidEvent != null)
-                    SerialNumberIsValidEvent(this, new DataValidationEventArgs(false));
+                SerialNumberIsValidEvent?.Invoke(this, new DataValidationEventArgs(false));
             }
             else
             {
-                if (SerialNumberIsValidEvent != null)
-                    SerialNumberIsValidEvent(this, new DataValidationEventArgs(true));
+                SerialNumberIsValidEvent?.Invoke(this, new DataValidationEventArgs(true));
             }    
             return isValid;
         }

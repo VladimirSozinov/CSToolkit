@@ -20,6 +20,7 @@ namespace CSToolkit.Model
                 return _operations; 
             }
         }
+
         public static List<string> OperationFileNames 
         {
             get
